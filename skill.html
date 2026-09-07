@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SKILL｜LEON INABA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700;800;900&family=Orbitron:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=20260903-0615">
+  <link rel="stylesheet" href="japanese-theme.css?v=20260903-0615">
+  <style>
+    .skill-page { min-height: 100vh; padding: 150px 7vw 120px; position: relative; z-index: 2; }
+    .skill-title { margin: 0 0 16px; color: var(--red); font-family: "Orbitron", sans-serif; font-size: clamp(48px, 7vw, 96px); font-weight: 800; letter-spacing: 0.08em; }
+    .skill-lead { max-width: 760px; margin: 0 0 90px; color: var(--white); line-height: 2; opacity: 0.8; }
+    .skill-list { max-width: 1180px; margin: 0 auto; }
+    .skill-row { min-height: 420px; display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: clamp(42px, 7vw, 110px); border-top: 1px solid rgba(229,34,34,0.12); position: relative; overflow: hidden; }
+    .skill-row:last-child { border-bottom: 1px solid rgba(229,34,34,0.12); }
+    .skill-row::before { content: ""; position: absolute; left: 0; top: -1px; width: 0; height: 1px; background: var(--red); opacity: 0.7; transition: width 0.9s cubic-bezier(0.22, 1, 0.36, 1); }
+    .skill-row.is-visible::before { width: 100%; }
+    .skill-row.reverse .skill-visual { order: 1; }
+    .skill-row.reverse .skill-copy { order: 2; }
+    .skill-visual { display: flex; align-items: center; justify-content: center; min-height: 300px; will-change: transform; }
+    .skill-logo { width: clamp(120px, 14vw, 190px); height: clamp(120px, 14vw, 190px); object-fit: contain; filter: brightness(0) saturate(100%) invert(24%) sepia(94%) saturate(5107%) hue-rotate(350deg) brightness(103%) contrast(96%); opacity: 1; }
+    .codex-logo { width: clamp(120px, 14vw, 190px); height: clamp(120px, 14vw, 190px); object-fit: contain; filter: brightness(0) saturate(100%) invert(24%) sepia(94%) saturate(5107%) hue-rotate(350deg) brightness(103%) contrast(96%); opacity: 0.96; }
+    .skill-wordmark { font-family: "Orbitron", sans-serif; font-size: clamp(72px, 10vw, 150px); font-weight: 800; letter-spacing: 0.04em; color: var(--red-bright); }
+    .sql-visual { position: relative; display: flex; align-items: center; justify-content: center; }
+    .sql-logo { width: clamp(120px, 14vw, 190px); height: clamp(120px, 14vw, 190px); object-fit: contain; filter: brightness(0) saturate(100%) invert(24%) sepia(94%) saturate(5107%) hue-rotate(350deg) brightness(103%) contrast(96%); opacity: 1; }
+    .sql-label { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font-family: "Noto Serif JP", "Yu Mincho", "Hiragino Mincho ProN", serif; font-size: clamp(28px, 4vw, 46px); font-weight: 700; letter-spacing: 0.06em; color: #000; line-height: 1; pointer-events: none; }
+    .skill-row:hover .skill-logo { transform: none; filter: brightness(0) saturate(100%) invert(24%) sepia(94%) saturate(5107%) hue-rotate(350deg) brightness(103%) contrast(96%); }
+    .skill-row:hover .sql-logo { transform: none; filter: brightness(0) saturate(100%) invert(24%) sepia(94%) saturate(5107%) hue-rotate(350deg) brightness(103%) contrast(96%); }
+    .skill-row:hover .skill-wordmark { transform: none; color: var(--red-bright); text-shadow: none; }
+    .skill-copy { max-width: 520px; }
+    .skill-kicker { margin: 0 0 10px; color: var(--red); font-family: "Orbitron", sans-serif; font-size: 12px; letter-spacing: 0.18em; }
+    .skill-copy h2 { margin: 0 0 20px; color: var(--red); font-family: "Orbitron", sans-serif; font-size: clamp(28px, 3vw, 42px); letter-spacing: 0.04em; font-weight: 700; text-shadow: 0 0 10px rgba(229,34,34,0.16); }
+    .skill-copy p { margin: 0; color: var(--white); font-size: 15px; line-height: 2.05; opacity: 0.78; }
+    nav a.active { color: var(--red-bright); text-shadow: 0 0 10px rgba(229,34,34,0.45); }
+    header .logo { color: var(--white) !important; text-shadow: none !important; }
+    header .logo span { color: var(--red) !important; }
+    header nav a,
+    header nav a.active { color: var(--white) !important; text-shadow: none !important; }
+    header nav a:hover,
+    header nav a.active:hover { color: var(--red-bright) !important; }
+
+    .motion-ready .skill-row .skill-copy,
+    .motion-ready .skill-row .skill-visual {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.75s ease, transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .motion-ready .skill-row .skill-visual { transition-delay: 0.12s; }
+
+    .motion-ready .skill-row.is-visible .skill-copy,
+    .motion-ready .skill-row.is-visible .skill-visual {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 760px) {
+      .skill-page { padding: 130px 7vw 90px; }
+      .skill-lead { margin-bottom: 54px; }
+      .skill-row, .skill-row.reverse { grid-template-columns: 1fr; gap: 10px; min-height: auto; padding: 54px 0 64px; }
+      .skill-row .skill-visual, .skill-row .skill-copy, .skill-row.reverse .skill-visual, .skill-row.reverse .skill-copy { order: initial; }
+      .skill-visual { min-height: 180px; justify-content: flex-start; }
+      .skill-logo, .codex-logo { width: 120px; height: 120px; }
+      .skill-wordmark { font-size: 72px; }
+      .sql-visual { justify-content: flex-start; }
+      .sql-logo { width: 120px; height: 120px; }
+      .sql-label { left: 60px; font-size: 30px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .skill-row::before { transition: none; width: 100%; }
+      .motion-ready .skill-row .skill-copy,
+      .motion-ready .skill-row .skill-visual {
+        opacity: 1;
+        transform: none !important;
+        transition: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- header-refresh: 2026-09-04 -->
+  <div class="background" aria-hidden="true"><div class="grid"></div><div class="glow glow-1"></div><div class="glow glow-2"></div></div>
+  <header>
+    <a href="index.html" class="logo"><span>Le</span>PORTFOLIO<span>.</span></a>
+    <nav>
+      <a href="skill.html" class="active">SKILL</a>
+      <a href="index.html#activity">BLOG</a>
+      <a href="certification.html">CERTIFICATION</a>
+      <a href="index.html#research">RESEARCH</a>
+      <a href="career.html">CAREER</a>
+    </nav>
+  </header>
+  <main class="skill-page">
+    <h1 class="skill-title">SKILL</h1>
+    <p class="skill-lead">現在扱っているAI・開発・データ関連の技術をまとめています。</p>
+    <div class="skill-list">
+      <section class="skill-row"><div class="skill-copy"><p class="skill-kicker">AI / DEEP LEARNING</p><h2>PyTorch</h2><p>ニューラルネットワークの構築や画像分類など、深層学習の実装に使用しています。AI・機械学習・データ分析を中心に扱っています。</p></div><div class="skill-visual"><img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytorch/pytorch-original.svg" alt="PyTorch logo"></div></section>
+      <section class="skill-row reverse"><div class="skill-visual"><img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/julia/julia-original.svg" alt="Julia logo"></div><div class="skill-copy"><p class="skill-kicker">NUMERICAL COMPUTING / RESEARCH</p><h2>Julia</h2><p>数値計算や研究用途で使用しています。</p></div></section>
+      <section class="skill-row"><div class="skill-copy"><p class="skill-kicker">BACKEND / WEB</p><h2>Go</h2><p>APIとして作った試作品を、その後あらためて別の形で作り直す二度手間を減らすために、Web上でそのまま実装・高速化していく手段として使用しています。</p></div><div class="skill-visual"><img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/go/go-original-wordmark.svg" alt="Go logo"></div></section>
+      <section class="skill-row reverse"><div class="skill-visual sql-visual"><img class="sql-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azuresqldatabase/azuresqldatabase-original.svg" alt="SQL database logo"><div class="sql-label" aria-label="SQL">SQL</div></div><div class="skill-copy"><p class="skill-kicker">DATABASE</p><h2>SQL</h2><p>データの保存、取得、検索、集計など、データベース操作に使用しています。</p></div></section>
+      <section class="skill-row"><div class="skill-copy"><p class="skill-kicker">DATA VISUALIZATION</p><h2>Tableau</h2><p>データをグラフやダッシュボードとして可視化し、分析結果や傾向を分かりやすく整理・共有するために使用しています。</p></div><div class="skill-visual"><img class="skill-logo" src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/tableau/default.svg" alt="Tableau logo"></div></section>
+      <section class="skill-row reverse"><div class="skill-visual"><img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" alt="Docker logo"></div><div class="skill-copy"><p class="skill-kicker">CONTAINER</p><h2>Docker</h2><p>AIアプリ、データベース、Webサービスをコンテナ化して動かすために使用しています。</p></div></section>
+      <section class="skill-row"><div class="skill-copy"><p class="skill-kicker">SELF-STUDY / GAME ENGINE</p><h2>Unreal Engine</h2><p>現在、独学で学習中です。ゲームエンジンの基本操作やリアルタイム3D表現を中心に、実際に触りながら理解を深めています。</p></div><div class="skill-visual"><img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/unrealengine/unrealengine-original.svg" alt="Unreal Engine logo"></div></section>
+      <section class="skill-row"><div class="skill-copy"><p class="skill-kicker">AI CODING AGENT</p><h2>Codex</h2><p>コードの作成だけでなく、既存コードの修正・レビュー・リファクタリングまで一連の開発作業を進めるために使用しています。GitHub上のプロジェクトを実際に更新しながら、実装と検証を素早く反復するための開発支援ツールとして活用しています。</p></div><div class="skill-visual"><img class="codex-logo" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/openai.svg" alt="OpenAI logo"></div></section>
+    </div>
+  </main>
+  <script>
+    (() => {
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const rows = [...document.querySelectorAll('.skill-row')];
+
+      if (!reduceMotion) document.documentElement.classList.add('motion-ready');
+
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.22, rootMargin: '0px 0px -8% 0px' });
+        rows.forEach((row) => observer.observe(row));
+      } else {
+        rows.forEach((row) => row.classList.add('is-visible'));
+      }
+
+      if (reduceMotion) {
+        rows.forEach((row) => row.classList.add('is-visible'));
+        return;
+      }
+
+      let ticking = false;
+      const updateParallax = () => {
+        const viewportCenter = window.innerHeight / 2;
+        rows.forEach((row) => {
+          const visual = row.querySelector('.skill-visual');
+          if (!visual || !row.classList.contains('is-visible')) return;
+          const rect = row.getBoundingClientRect();
+          const rowCenter = rect.top + rect.height / 2;
+          const distance = (rowCenter - viewportCenter) / window.innerHeight;
+          const offset = Math.max(-10, Math.min(10, distance * -14));
+          visual.style.transform = `translateY(${offset}px)`;
+        });
+        ticking = false;
+      };
+
+      const onScroll = () => {
+        if (!ticking) {
+          requestAnimationFrame(updateParallax);
+          ticking = true;
+        }
+      };
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll);
+      updateParallax();
+    })();
+  </script>
+</body>
+</html>

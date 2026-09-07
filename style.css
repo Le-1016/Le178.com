@@ -1,0 +1,927 @@
+/* ========================================
+   VARIABLES
+======================================== */
+
+:root {
+  --black: #050505;
+  --black-light: #0a0a0a;
+  --panel: #0d0d0d;
+  --panel-light: #121212;
+
+  --red: #e52222;
+  --red-bright: #ff3030;
+
+  --white: #f1f1f1;
+  --gray: #777;
+  --gray-dark: #333;
+
+  --red-border: rgba(229, 34, 34, 0.28);
+}
+
+
+/* ========================================
+   RESET
+======================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+
+  background: var(--black);
+  color: var(--white);
+
+  font-family:
+    "Inter",
+    "Noto Sans JP",
+    sans-serif;
+
+  overflow-x: hidden;
+}
+
+
+/* ========================================
+   BACKGROUND
+======================================== */
+
+.background {
+  position: fixed;
+  inset: 0;
+
+  pointer-events: none;
+
+  overflow: hidden;
+
+  z-index: -1;
+}
+
+
+/* 薄いグリッド */
+
+.grid {
+  position: absolute;
+  inset: 0;
+
+  background-image:
+
+    linear-gradient(
+      rgba(229, 34, 34, 0.035) 1px,
+      transparent 1px
+    ),
+
+    linear-gradient(
+      90deg,
+      rgba(229, 34, 34, 0.035) 1px,
+      transparent 1px
+    );
+
+  background-size: 60px 60px;
+
+  mask-image:
+    linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 1),
+      transparent 80%
+    );
+}
+
+
+/* 赤い光 */
+
+.glow {
+  position: absolute;
+
+  border-radius: 50%;
+
+  filter: blur(100px);
+
+  background: rgba(229, 34, 34, 0.1);
+}
+
+
+.glow-1 {
+  width: 600px;
+  height: 600px;
+
+  top: -250px;
+  right: -200px;
+}
+
+
+.glow-2 {
+  width: 500px;
+  height: 500px;
+
+  left: -250px;
+  top: 65vh;
+
+  opacity: 0.4;
+}
+
+
+/* ========================================
+   HEADER
+======================================== */
+
+header {
+  width: 100%;
+  height: 90px;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0 6vw;
+
+  z-index: 100;
+
+  background: rgba(5, 5, 5, 0.72);
+
+  border-bottom:
+    1px solid rgba(255, 255, 255, 0.05);
+
+  backdrop-filter: blur(16px);
+}
+
+
+/* Logo */
+
+.logo {
+  color: var(--white);
+
+  text-decoration: none;
+
+  font-size: 19px;
+
+  font-weight: 800;
+
+  letter-spacing: -0.04em;
+}
+
+
+.logo span {
+  color: var(--red);
+}
+
+
+/* Navigation */
+
+nav {
+  display: flex;
+
+  align-items: center;
+
+  gap: 36px;
+}
+
+
+nav a {
+  position: relative;
+
+  color: #777;
+
+  font-size: 12px;
+
+  font-weight: 500;
+
+  letter-spacing: 0.08em;
+
+  text-decoration: none;
+
+  transition: 0.25s;
+}
+
+
+nav a::after {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  bottom: -8px;
+
+  width: 0;
+  height: 1px;
+
+  background: var(--red);
+
+  box-shadow:
+    0 0 10px var(--red);
+
+  transition: 0.25s;
+}
+
+
+nav a:hover {
+  color: white;
+}
+
+
+nav a:hover::after {
+  width: 100%;
+}
+
+
+/* ========================================
+   HERO
+======================================== */
+
+.hero {
+  min-height: 100vh;
+
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+
+  padding:
+    140px
+    8vw
+    80px;
+
+  overflow: hidden;
+}
+
+
+.hero-content {
+  position: relative;
+
+  z-index: 5;
+}
+
+
+/* Main title */
+
+.hero h1 {
+  margin: 0;
+
+  color: var(--white);
+
+  font-size:
+    clamp(
+      56px,
+      9vw,
+      150px
+    );
+
+  font-weight: 900;
+
+  letter-spacing: -0.075em;
+
+  line-height: 0.82;
+}
+
+
+.hero h1 span {
+  color: var(--red);
+
+  text-shadow:
+    0 0 25px
+    rgba(229, 34, 34, 0.22);
+}
+
+
+/* Subtitle */
+
+.hero p {
+  margin-top: 40px;
+
+  color: #666;
+
+  font-size: 13px;
+
+  letter-spacing: 0.1em;
+
+  font-weight: 400;
+}
+
+
+/* Button */
+
+.hero-button {
+  width: fit-content;
+
+  margin-top: 42px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 40px;
+
+  padding:
+    15px
+    22px;
+
+  color: var(--white);
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.15);
+
+  text-decoration: none;
+
+  font-size: 13px;
+
+  transition:
+    border-color 0.25s,
+    background 0.25s,
+    transform 0.25s;
+}
+
+
+.hero-button span {
+  color: var(--red);
+
+  font-size: 17px;
+
+  transition: transform 0.25s;
+}
+
+
+.hero-button:hover {
+  border-color: var(--red);
+
+  background:
+    rgba(229, 34, 34, 0.04);
+
+  transform:
+    translateY(-2px);
+}
+
+
+.hero-button:hover span {
+  transform:
+    translateX(5px);
+}
+
+
+/* ========================================
+   HERO CIRCLES
+======================================== */
+
+.hero-decoration {
+  position: absolute;
+
+  width: min(55vw, 800px);
+  aspect-ratio: 1;
+
+  right: -10vw;
+  top: 50%;
+
+  transform:
+    translateY(-50%);
+
+  opacity: 0.7;
+}
+
+
+.circle {
+  position: absolute;
+
+  border-radius: 50%;
+
+  border:
+    1px solid
+    rgba(229, 34, 34, 0.13);
+}
+
+
+.circle-1 {
+  inset: 0;
+
+  animation:
+    rotateCircle
+    35s linear infinite;
+}
+
+
+.circle-2 {
+  inset: 15%;
+
+  border-color:
+    rgba(229, 34, 34, 0.22);
+
+  animation:
+    rotateCircleReverse
+    25s linear infinite;
+}
+
+
+.circle-3 {
+  inset: 34%;
+
+  border-color:
+    rgba(229, 34, 34, 0.35);
+
+  box-shadow:
+
+    0 0 30px
+    rgba(229, 34, 34, 0.05),
+
+    inset 0 0 30px
+    rgba(229, 34, 34, 0.03);
+}
+
+
+.circle-1::before,
+.circle-2::before {
+  content: "";
+
+  position: absolute;
+
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+
+  background: var(--red);
+
+  box-shadow:
+    0 0 15px var(--red);
+}
+
+
+.circle-1::before {
+  left: 20%;
+  top: 7%;
+}
+
+
+.circle-2::before {
+  right: 8%;
+  bottom: 25%;
+}
+
+
+@keyframes rotateCircle {
+
+  from {
+    transform:
+      rotate(0deg);
+  }
+
+  to {
+    transform:
+      rotate(360deg);
+  }
+
+}
+
+
+@keyframes rotateCircleReverse {
+
+  from {
+    transform:
+      rotate(360deg);
+  }
+
+  to {
+    transform:
+      rotate(0deg);
+  }
+
+}
+
+
+/* ========================================
+   SCROLL LINE
+======================================== */
+
+.scroll-line {
+  position: absolute;
+
+  width: 1px;
+  height: 80px;
+
+  left: 50%;
+
+  bottom: 0;
+
+  background:
+    linear-gradient(
+      to bottom,
+      var(--red),
+      transparent
+    );
+
+  box-shadow:
+    0 0 8px
+    rgba(229, 34, 34, 0.4);
+}
+
+
+/* ========================================
+   GENERAL SECTION
+======================================== */
+
+section:not(.hero) {
+  max-width: 1400px;
+
+  margin: auto;
+
+  padding:
+    130px
+    8vw;
+}
+
+
+.section-heading {
+  margin-bottom: 60px;
+}
+
+
+.section-heading h2 {
+  color: var(--white);
+
+  font-size:
+    clamp(
+      38px,
+      5vw,
+      70px
+    );
+
+  font-weight: 800;
+
+  letter-spacing:
+    -0.05em;
+}
+
+
+.section-heading h2 span {
+  color: var(--red);
+}
+
+
+/* ========================================
+   WORKS
+======================================== */
+
+.works-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 20px;
+}
+
+
+.work-card {
+  position: relative;
+
+  min-height: 420px;
+
+  background:
+    var(--panel);
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.06);
+
+  overflow: hidden;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.35s,
+    border-color 0.35s,
+    box-shadow 0.35s;
+}
+
+
+/* 赤い角 */
+
+.work-card::before {
+  content: "";
+
+  position: absolute;
+
+  top: -1px;
+  left: -1px;
+
+  width: 45px;
+  height: 2px;
+
+  z-index: 10;
+
+  background: var(--red);
+
+  box-shadow:
+    0 0 10px
+    rgba(229, 34, 34, 0.7);
+}
+
+
+.work-card::after {
+  content: "";
+
+  position: absolute;
+
+  top: -1px;
+  left: -1px;
+
+  width: 2px;
+  height: 45px;
+
+  z-index: 10;
+
+  background: var(--red);
+}
+
+
+/* Image area */
+
+.work-image {
+  height: 280px;
+
+  position: relative;
+
+  background:
+
+    radial-gradient(
+      circle at center,
+      rgba(229, 34, 34, 0.08),
+      transparent 60%
+    ),
+
+    #090909;
+}
+
+
+.work-image::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background-image:
+
+    linear-gradient(
+      rgba(255, 255, 255, 0.025) 1px,
+      transparent 1px
+    ),
+
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.025) 1px,
+      transparent 1px
+    );
+
+  background-size:
+    25px 25px;
+}
+
+
+/* Card content */
+
+.work-content {
+  padding:
+    26px
+    28px;
+}
+
+
+.work-content h3 {
+  color: var(--white);
+
+  font-size: 19px;
+
+  font-weight: 600;
+
+  margin-bottom: 9px;
+}
+
+
+.work-content p {
+  color: #555;
+
+  font-size: 12px;
+
+  letter-spacing: 0.04em;
+}
+
+
+/* Hover */
+
+.work-card:hover {
+  transform:
+    translateY(-8px);
+
+  border-color:
+    rgba(229, 34, 34, 0.35);
+
+  box-shadow:
+
+    0 30px 80px
+    rgba(0, 0, 0, 0.6),
+
+    0 0 40px
+    rgba(229, 34, 34, 0.06);
+}
+
+
+.work-card:hover .work-image {
+  background:
+
+    radial-gradient(
+      circle at center,
+      rgba(229, 34, 34, 0.13),
+      transparent 60%
+    ),
+
+    #090909;
+}
+
+
+/* ========================================
+   ABOUT
+======================================== */
+
+.about {
+  min-height: 70vh;
+}
+
+
+.about-box {
+  width: 100%;
+
+  min-height: 400px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #0d0d0d,
+      #080808
+    );
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.06);
+
+  border-left:
+    2px solid
+    var(--red);
+
+  box-shadow:
+    -10px 0 50px
+    rgba(229, 34, 34, 0.025);
+}
+
+
+/* ========================================
+   FOOTER
+======================================== */
+
+footer {
+  padding:
+    50px
+    8vw;
+
+  background:
+    #030303;
+}
+
+
+.footer-line {
+  height: 1px;
+
+  width: 100%;
+
+  background:
+    linear-gradient(
+      90deg,
+      var(--red),
+      rgba(229, 34, 34, 0.05),
+      transparent
+    );
+}
+
+
+/* ========================================
+   SCAN LINE
+======================================== */
+
+body::after {
+  content: "";
+
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 9999;
+
+  pointer-events: none;
+
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(0, 0, 0, 0.08) 3px,
+      rgba(0, 0, 0, 0.08) 4px
+    );
+}
+
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 900px) {
+
+  header {
+    padding:
+      0
+      24px;
+  }
+
+
+  nav {
+    gap: 20px;
+  }
+
+
+  .hero {
+    padding:
+      120px
+      24px
+      80px;
+  }
+
+
+  .hero-decoration {
+    width: 700px;
+
+    opacity: 0.35;
+
+    right: -450px;
+  }
+
+
+  section:not(.hero) {
+    padding:
+      100px
+      24px;
+  }
+
+
+  .works-grid {
+    grid-template-columns:
+      1fr;
+  }
+
+
+  .work-card {
+    min-height: 350px;
+  }
+
+}
+
+
+@media (max-width: 600px) {
+
+  header {
+    height: 70px;
+  }
+
+
+  nav a {
+    display: none;
+  }
+
+
+  .hero h1 {
+    font-size:
+      clamp(
+        48px,
+        16vw,
+        80px
+      );
+  }
+
+
+  .hero p {
+    font-size: 11px;
+  }
+
+
+  .hero-decoration {
+    right: -520px;
+  }
+
+}
