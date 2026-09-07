@@ -78,6 +78,13 @@ target/
 # Jupyter Notebook
 .ipynb_checkpoints
 
+# Research data and machine-learning artifacts
+data/
+models/
+*.pt
+*.pth
+*.onnx
+
 # IPython
 profile_default/
 ipython_config.py
@@ -149,6 +156,8 @@ activemq-data/
 
 # Environments
 .env
+.env.*
+!.env.example
 .envrc
 .venv
 env/
@@ -213,6 +222,11 @@ tempCodeRunnerFile.py
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# Julia, editors, and operating systems
+julia/Manifest.toml
+.vscode/
+.DS_Store
 
 # Streamlit
 .streamlit/secrets.toml
