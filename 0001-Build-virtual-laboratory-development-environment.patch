@@ -1,0 +1,557 @@
+From 7a58548755eec881019f8df16009ae3a2aa489ee Mon Sep 17 00:00:00 2001
+From: Codex <codex@openai.com>
+Date: Mon, 7 Sep 2026 15:37:00 -0500
+Subject: [PATCH] Build virtual laboratory development environment
+
+---
+ .devcontainer/Dockerfile        | 17 +++++++
+ .devcontainer/devcontainer.json | 28 +++++++++++
+ .devcontainer/post-create.sh    |  8 ++++
+ .env.example                    |  7 +++
+ .gitignore                      | 14 ++++++
+ Makefile                        | 18 ++++++++
+ README.md                       | 82 ++++++++++++++++++++++++++++++++-
+ compose.yaml                    | 37 +++++++++++++++
+ go.mod                          |  5 ++
+ go/cmd/api/main.go              | 60 ++++++++++++++++++++++++
+ go/main.go                      | 25 ++++++++++
+ julia/Project.toml              | 13 ++++++
+ julia/check_db.jl               |  9 ++++
+ notebooks/00_lab_check.ipynb    | 44 ++++++++++++++++++
+ python/check_db.py              | 12 +++++
+ python/requirements.txt         |  7 +++
+ sql/init/001_schema.sql         |  8 ++++
+ 17 files changed, 393 insertions(+), 1 deletion(-)
+ create mode 100644 .devcontainer/Dockerfile
+ create mode 100644 .devcontainer/devcontainer.json
+ create mode 100644 .devcontainer/post-create.sh
+ create mode 100644 .env.example
+ create mode 100644 Makefile
+ create mode 100644 compose.yaml
+ create mode 100644 go.mod
+ create mode 100644 go/cmd/api/main.go
+ create mode 100644 go/main.go
+ create mode 100644 julia/Project.toml
+ create mode 100644 julia/check_db.jl
+ create mode 100644 notebooks/00_lab_check.ipynb
+ create mode 100644 python/check_db.py
+ create mode 100644 python/requirements.txt
+ create mode 100644 sql/init/001_schema.sql
+
+diff --git a/.devcontainer/Dockerfile b/.devcontainer/Dockerfile
+new file mode 100644
+index 0000000..72ea6b8
+--- /dev/null
++++ b/.devcontainer/Dockerfile
+@@ -0,0 +1,17 @@
++FROM julia:1.11-bookworm AS julia
++
++FROM mcr.microsoft.com/devcontainers/python:1-3.12-bookworm
++
++RUN apt-get update \
++    && apt-get install -y --no-install-recommends curl ca-certificates postgresql-client \
++    && rm -rf /var/lib/apt/lists/*
++
++COPY --from=julia /usr/local/julia /usr/local/julia
++RUN ln -s /usr/local/julia/bin/julia /usr/local/bin/julia
++
++COPY python/requirements.txt /tmp/requirements.txt
++RUN python -m pip install --no-cache-dir -r /tmp/requirements.txt \
++    && python -m pip install --no-cache-dir torch==2.8.0 \
++       --index-url https://download.pytorch.org/whl/cpu
++
++USER vscode
+diff --git a/.devcontainer/devcontainer.json b/.devcontainer/devcontainer.json
+new file mode 100644
+index 0000000..5f30990
+--- /dev/null
++++ b/.devcontainer/devcontainer.json
+@@ -0,0 +1,28 @@
++{
++  "name": "Le178 Virtual Laboratory",
++  "dockerComposeFile": "../compose.yaml",
++  "service": "lab",
++  "workspaceFolder": "/workspace",
++  "shutdownAction": "stopCompose",
++  "features": {
++    "ghcr.io/devcontainers/features/go:1": { "version": "1.25" }
++  },
++  "forwardPorts": [8888, 8080],
++  "portsAttributes": {
++    "8888": { "label": "JupyterLab", "onAutoForward": "openBrowser" },
++    "8080": { "label": "Go API", "onAutoForward": "notify" }
++  },
++  "postCreateCommand": "bash .devcontainer/post-create.sh",
++  "customizations": {
++    "vscode": {
++      "extensions": [
++        "ms-python.python",
++        "ms-toolsai.jupyter",
++        "golang.go",
++        "julialang.language-julia",
++        "mtxr.sqltools",
++        "mtxr.sqltools-driver-pg"
++      ]
++    }
++  }
++}
+diff --git a/.devcontainer/post-create.sh b/.devcontainer/post-create.sh
+new file mode 100644
+index 0000000..cb15616
+--- /dev/null
++++ b/.devcontainer/post-create.sh
+@@ -0,0 +1,8 @@
++#!/usr/bin/env bash
++set -euo pipefail
++
++go mod download
++julia --project=julia -e 'using Pkg; Pkg.instantiate()'
++
++echo "Virtual laboratory is ready."
++echo "Run 'make check' to test every database connection."
+diff --git a/.env.example b/.env.example
+new file mode 100644
+index 0000000..83d1b6d
+--- /dev/null
++++ b/.env.example
+@@ -0,0 +1,7 @@
++# Template only. Never commit real passwords or API keys.
++DATABASE_URL=postgresql://lab_user:lab_password@postgres:5432/lab_db
++PGHOST=postgres
++PGPORT=5432
++PGDATABASE=lab_db
++PGUSER=lab_user
++PGPASSWORD=lab_password
+diff --git a/.gitignore b/.gitignore
+index 83972fa..3a54e45 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -78,6 +78,13 @@ target/
+ # Jupyter Notebook
+ .ipynb_checkpoints
+ 
++# Research data and machine-learning artifacts
++data/
++models/
++*.pt
++*.pth
++*.onnx
++
+ # IPython
+ profile_default/
+ ipython_config.py
+@@ -149,6 +156,8 @@ activemq-data/
+ 
+ # Environments
+ .env
++.env.*
++!.env.example
+ .envrc
+ .venv
+ env/
+@@ -214,5 +223,10 @@ marimo/_static/
+ marimo/_lsp/
+ __marimo__/
+ 
++# Julia, editors, and operating systems
++julia/Manifest.toml
++.vscode/
++.DS_Store
++
+ # Streamlit
+ .streamlit/secrets.toml
+diff --git a/Makefile b/Makefile
+new file mode 100644
+index 0000000..934e056
+--- /dev/null
++++ b/Makefile
+@@ -0,0 +1,18 @@
++.PHONY: check check-python check-go check-julia jupyter api
++
++check: check-python check-go check-julia
++
++check-python:
++	python python/check_db.py
++
++check-go:
++	go run ./go
++
++check-julia:
++	julia --project=julia julia/check_db.jl
++
++jupyter:
++	jupyter lab --ip=0.0.0.0 --port=8888 --no-browser
++
++api:
++	go run ./go/cmd/api
+diff --git a/README.md b/README.md
+index 9b3e14e..89b6f3c 100644
+--- a/README.md
++++ b/README.md
+@@ -1 +1,81 @@
+-# Le178.com
+\ No newline at end of file
++# Le178 Virtual Laboratory
++
++Go、Julia、Python/PyTorch、JupyterLab、PostgreSQLを1つのGitHub Codespaceで扱う仮想研究所です。
++
++> 本リポジトリは、ポートフォリオおよび成果物の閲覧を目的として公開しています。
++> 現時点では、コードの再利用・改変・再配布を許可するライセンスを設定していません。
++
++## 設備
++
++| 設備 | 用途 |
++|---|---|
++| Go | 高速処理・API |
++| Julia | 数値計算・科学計算 |
++| Python + PyTorch | データ分析・機械学習 |
++| JupyterLab | 実験ノート・成果共有 |
++| PostgreSQL | 共通データベース |
++| Docker Compose | 環境の再現とサービス管理 |
++
++## Codespacesで始める
++
++1. GitHubのリポジトリ画面で **Code → Codespaces → Create codespace on main** を選びます。
++2. 初回ビルドと依存関係の準備が終わるまで待ちます。
++3. Codespaceのターミナルで接続テストを実行します。
++
++```bash
++make check
++```
++
++Python、Go、Juliaの3つすべてから、同じPostgreSQLデータを取得できれば成功です。
++
++## JupyterLabを使う
++
++```bash
++make jupyter
++```
++
++VS Codeの「ポート」タブに表示されるポート`8888`の地球アイコンから開きます。最初の実験は
++[`notebooks/00_lab_check.ipynb`](notebooks/00_lab_check.ipynb) です。
++
++## Go APIを使う
++
++```bash
++make api
++```
++
++転送されたポート`8080`の`/health`で稼働確認、`/experiments`でPostgreSQLのデータをJSONとして確認できます。
++
++## 個別の接続テスト
++
++```bash
++make check-python
++make check-go
++make check-julia
++```
++
++## データベース接続
++
++コンテナ間では、PostgreSQLのホスト名は`localhost`ではなく`postgres`です。初期開発用の接続情報は`compose.yaml`に記載しています。本番用パスワードやAPIキーはコミットせず、Codespaces Secretsなどで管理してください。
++
++初期SQLは`sql/init/`に置きます。初期SQLを変更してデータベースを作り直す場合は、保存済みデータが消えることを理解したうえで次を実行します。
++
++```bash
++docker compose down --volumes
++docker compose up -d
++```
++
++## ディレクトリ
++
++```text
++.
++├── .devcontainer/  # Codespaces開発環境
++├── go/             # Goプログラム
++├── julia/          # Juliaプロジェクト
++├── notebooks/      # 共有する実験ノート
++├── python/         # Python・PyTorchコード
++└── sql/init/       # PostgreSQL初期化SQL
++```
++
++## 公開について
++
++さくらのレンタルサーバには、実行済みNotebookをHTMLへ変換した成果物やポートフォリオサイトを配置します。Docker、PostgreSQL、PyTorch APIの常時稼働が必要になった場合は、VPSなどroot権限のある環境へデプロイします。
+diff --git a/compose.yaml b/compose.yaml
+new file mode 100644
+index 0000000..5ae6b57
+--- /dev/null
++++ b/compose.yaml
+@@ -0,0 +1,37 @@
++services:
++  lab:
++    build:
++      context: .
++      dockerfile: .devcontainer/Dockerfile
++    command: sleep infinity
++    environment:
++      DATABASE_URL: postgresql://lab_user:lab_password@postgres:5432/lab_db
++      PGHOST: postgres
++      PGPORT: 5432
++      PGDATABASE: lab_db
++      PGUSER: lab_user
++      PGPASSWORD: lab_password
++    volumes:
++      - .:/workspace:cached
++    depends_on:
++      postgres:
++        condition: service_healthy
++
++  postgres:
++    image: postgres:17-bookworm
++    restart: unless-stopped
++    environment:
++      POSTGRES_DB: lab_db
++      POSTGRES_USER: lab_user
++      POSTGRES_PASSWORD: lab_password
++    healthcheck:
++      test: ["CMD-SHELL", "pg_isready -U lab_user -d lab_db"]
++      interval: 5s
++      timeout: 5s
++      retries: 10
++    volumes:
++      - postgres-data:/var/lib/postgresql/data
++      - ./sql/init:/docker-entrypoint-initdb.d:ro
++
++volumes:
++  postgres-data:
+diff --git a/go.mod b/go.mod
+new file mode 100644
+index 0000000..ecd0cab
+--- /dev/null
++++ b/go.mod
+@@ -0,0 +1,5 @@
++module github.com/Le-1016/Le178.com
++
++go 1.25
++
++require github.com/jackc/pgx/v5 v5.7.6
+diff --git a/go/cmd/api/main.go b/go/cmd/api/main.go
+new file mode 100644
+index 0000000..a22f861
+--- /dev/null
++++ b/go/cmd/api/main.go
+@@ -0,0 +1,60 @@
++package main
++
++import (
++	"context"
++	"encoding/json"
++	"log"
++	"net/http"
++	"os"
++
++	"github.com/jackc/pgx/v5/pgxpool"
++)
++
++type experiment struct {
++	ID      int64  `json:"id"`
++	Message string `json:"message"`
++}
++
++func main() {
++	pool, err := pgxpool.New(context.Background(), os.Getenv("DATABASE_URL"))
++	if err != nil {
++		log.Fatal(err)
++	}
++	defer pool.Close()
++
++	http.HandleFunc("/health", func(response http.ResponseWriter, request *http.Request) {
++		if err := pool.Ping(request.Context()); err != nil {
++			http.Error(response, "database unavailable", http.StatusServiceUnavailable)
++			return
++		}
++		response.WriteHeader(http.StatusOK)
++		_, _ = response.Write([]byte("ok\n"))
++	})
++
++	http.HandleFunc("/experiments", func(response http.ResponseWriter, request *http.Request) {
++		rows, err := pool.Query(request.Context(), "SELECT id, message FROM experiments ORDER BY id")
++		if err != nil {
++			http.Error(response, err.Error(), http.StatusInternalServerError)
++			return
++		}
++		defer rows.Close()
++
++		experiments := make([]experiment, 0)
++		for rows.Next() {
++			var item experiment
++			if err := rows.Scan(&item.ID, &item.Message); err != nil {
++				http.Error(response, err.Error(), http.StatusInternalServerError)
++				return
++			}
++			experiments = append(experiments, item)
++		}
++
++		response.Header().Set("Content-Type", "application/json")
++		if err := json.NewEncoder(response).Encode(experiments); err != nil {
++			log.Printf("encode response: %v", err)
++		}
++	})
++
++	log.Println("Go API listening on http://0.0.0.0:8080")
++	log.Fatal(http.ListenAndServe(":8080", nil))
++}
+diff --git a/go/main.go b/go/main.go
+new file mode 100644
+index 0000000..e5ce3e7
+--- /dev/null
++++ b/go/main.go
+@@ -0,0 +1,25 @@
++package main
++
++import (
++	"context"
++	"fmt"
++	"log"
++	"os"
++
++	"github.com/jackc/pgx/v5"
++)
++
++func main() {
++	connection, err := pgx.Connect(context.Background(), os.Getenv("DATABASE_URL"))
++	if err != nil {
++		log.Fatal(err)
++	}
++	defer connection.Close(context.Background())
++
++	var message string
++	if err := connection.QueryRow(context.Background(), "SELECT message FROM experiments ORDER BY id LIMIT 1").Scan(&message); err != nil {
++		log.Fatal(err)
++	}
++
++	fmt.Printf("Go connected to PostgreSQL: %s\n", message)
++}
+diff --git a/julia/Project.toml b/julia/Project.toml
+new file mode 100644
+index 0000000..71e490d
+--- /dev/null
++++ b/julia/Project.toml
+@@ -0,0 +1,13 @@
++name = "VirtualLab"
++uuid = "bb382acd-27b1-40b0-a192-20bf91a0cff1"
++authors = ["Le-1016"]
++version = "0.1.0"
++
++[deps]
++LibPQ = "194296ae-ab2e-5f79-8cd4-7183a0a5a0d1"
++Tables = "bd369af6-aec1-5ad0-b16a-f7cc5008161c"
++
++[compat]
++LibPQ = "1"
++Tables = "1"
++julia = "1.11"
+diff --git a/julia/check_db.jl b/julia/check_db.jl
+new file mode 100644
+index 0000000..be74de9
+--- /dev/null
++++ b/julia/check_db.jl
+@@ -0,0 +1,9 @@
++using LibPQ
++using Tables
++
++connection = LibPQ.Connection(ENV["DATABASE_URL"])
++result = execute(connection, "SELECT message FROM experiments ORDER BY id LIMIT 1")
++message = first(Tables.rowtable(result)).message
++close(connection)
++
++println("Julia connected to PostgreSQL: $message")
+diff --git a/notebooks/00_lab_check.ipynb b/notebooks/00_lab_check.ipynb
+new file mode 100644
+index 0000000..a8dd807
+--- /dev/null
++++ b/notebooks/00_lab_check.ipynb
+@@ -0,0 +1,44 @@
++{
++ "cells": [
++  {
++   "cell_type": "markdown",
++   "metadata": {},
++   "source": [
++    "# Virtual Laboratory Check\n",
++    "PostgreSQLへの接続とPyTorchの動作を確認します。"
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": null,
++   "metadata": {},
++   "outputs": [],
++   "source": [
++    "import os\n",
++    "import pandas as pd\n",
++    "import psycopg\n",
++    "import torch\n",
++    "from sqlalchemy import create_engine\n",
++    "\n",
++    "engine = create_engine(os.environ[\"DATABASE_URL\"])\n",
++    "experiments = pd.read_sql(\"SELECT * FROM experiments ORDER BY id\", engine)\n",
++    "\n",
++    "print(f\"PyTorch version: {torch.__version__}\")\n",
++    "experiments"
++   ]
++  }
++ ],
++ "metadata": {
++  "kernelspec": {
++   "display_name": "Python 3",
++   "language": "python",
++   "name": "python3"
++  },
++  "language_info": {
++   "name": "python",
++   "version": "3.12"
++  }
++ },
++ "nbformat": 4,
++ "nbformat_minor": 5
++}
+diff --git a/python/check_db.py b/python/check_db.py
+new file mode 100644
+index 0000000..324b870
+--- /dev/null
++++ b/python/check_db.py
+@@ -0,0 +1,12 @@
++import os
++
++import psycopg
++import torch
++
++with psycopg.connect(os.environ["DATABASE_URL"]) as connection:
++    with connection.cursor() as cursor:
++        cursor.execute("SELECT message FROM experiments ORDER BY id LIMIT 1")
++        message = cursor.fetchone()[0]
++
++print(f"Python connected to PostgreSQL: {message}")
++print(f"PyTorch {torch.__version__}: tensor sum = {torch.tensor([1, 2, 3]).sum().item()}")
+diff --git a/python/requirements.txt b/python/requirements.txt
+new file mode 100644
+index 0000000..e48be17
+--- /dev/null
++++ b/python/requirements.txt
+@@ -0,0 +1,7 @@
++jupyterlab==4.4.7
++ipykernel==6.30.1
++numpy==2.3.3
++pandas==2.3.2
++matplotlib==3.10.6
++psycopg[binary]==3.2.10
++SQLAlchemy==2.0.43
+diff --git a/sql/init/001_schema.sql b/sql/init/001_schema.sql
+new file mode 100644
+index 0000000..3938360
+--- /dev/null
++++ b/sql/init/001_schema.sql
+@@ -0,0 +1,8 @@
++CREATE TABLE IF NOT EXISTS experiments (
++    id BIGSERIAL PRIMARY KEY,
++    message TEXT NOT NULL,
++    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
++);
++
++INSERT INTO experiments (message)
++VALUES ('Hello from the virtual laboratory!');
+-- 
+2.51.1
+
