@@ -1,6 +1,6 @@
-# Le178 Virtual Laboratory
+# Le仮想研究所
 
-Go、Julia、Python/PyTorch、JupyterLab、PostgreSQLを1つのGitHub Codespaceで扱う仮想研究所です。
+「考える、動かす、覚える」の用途で構築された数値計算、API、データベース、機械学習が接続している唯一の仮想研究所です。
 
 > 本リポジトリは、ポートフォリオおよび成果物の閲覧を目的として公開しています。
 > 現時点では、コードの再利用・改変・再配布を許可するライセンスを設定していません。
@@ -9,12 +9,11 @@ Go、Julia、Python/PyTorch、JupyterLab、PostgreSQLを1つのGitHub Codespace�
 
 | 設備 | 用途 |
 |---|---|
-| Go | 高速処理・API |
-| Julia | 数値計算・科学計算 |
-| Python + PyTorch | データ分析・機械学習 |
+| Go | API |
+| Julia | 数値計算 |
+| PyTorch | 機械学習 |
 | JupyterLab | 実験ノート・成果共有 |
-| PostgreSQL | 共通データベース |
-| Docker Compose | 環境の再現とサービス管理 |
+| PostgreSQL | データベース |
 
 ## Codespacesで始める
 
