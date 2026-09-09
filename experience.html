@@ -35,17 +35,21 @@
     }
 
     .experience-list {
-      max-width: 1100px;
+      max-width: 1180px;
       margin: 0 auto;
     }
 
     .experience-card {
       position: relative;
-      min-height: 310px;
-      padding: clamp(38px, 5vw, 62px);
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+      gap: clamp(34px, 5vw, 74px);
+      min-height: 390px;
+      padding: clamp(42px, 5vw, 64px);
       border: 1px solid rgba(229, 34, 34, 0.22);
       background: linear-gradient(135deg, rgba(13,13,13,0.96), rgba(7,7,7,0.96));
       overflow: hidden;
+      align-items: stretch;
     }
 
     .experience-card::before {
@@ -65,15 +69,26 @@
       position: absolute;
       top: 22px;
       right: 22px;
+      z-index: 3;
       padding: 8px 12px;
       border: 1px solid rgba(229, 34, 34, 0.58);
       color: var(--red-bright);
-      background: rgba(229, 34, 34, 0.055);
+      background: rgba(8,8,8,0.86);
       font-family: "Orbitron", sans-serif;
       font-size: 11px;
       font-weight: 700;
       letter-spacing: 0.16em;
       text-transform: uppercase;
+    }
+
+    .experience-copy {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      text-align: left;
+      padding-top: 4px;
     }
 
     .experience-kicker {
@@ -86,19 +101,18 @@
     }
 
     .experience-card h2 {
-      max-width: 820px;
+      max-width: 650px;
       margin: 0 0 24px;
-      padding-right: 90px;
       color: var(--white);
       font-family: "Noto Serif JP", "Yu Mincho", "Hiragino Mincho ProN", serif;
-      font-size: clamp(25px, 3.2vw, 42px);
+      font-size: clamp(25px, 3vw, 40px);
       font-weight: 700;
       line-height: 1.6;
       letter-spacing: 0.02em;
     }
 
-    .experience-card p {
-      max-width: 820px;
+    .experience-description {
+      max-width: 620px;
       margin: 0;
       color: var(--white);
       font-size: 15px;
@@ -106,26 +120,122 @@
       opacity: 0.76;
     }
 
-    .motion-ready .experience-card .experience-kicker,
-    .motion-ready .experience-card h2,
-    .motion-ready .experience-card p,
+    .experience-skills {
+      margin-top: auto;
+      padding-top: 34px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .experience-skill-logo {
+      width: 54px;
+      height: 54px;
+      object-fit: contain;
+      filter: brightness(0) saturate(100%) invert(24%) sepia(94%) saturate(5107%) hue-rotate(350deg) brightness(103%) contrast(96%);
+    }
+
+    .experience-skill-meta {
+      display: grid;
+      gap: 3px;
+    }
+
+    .experience-skill-label {
+      color: rgba(241,241,241,0.48);
+      font-family: "Orbitron", sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+    }
+
+    .experience-skill-name {
+      color: var(--red-bright);
+      font-family: "Orbitron", sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+
+    .experience-visual {
+      min-width: 0;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(229,34,34,0.16);
+      background:
+        linear-gradient(rgba(229,34,34,0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(229,34,34,0.045) 1px, transparent 1px),
+        radial-gradient(circle at 50% 45%, rgba(229,34,34,0.08), transparent 58%),
+        rgba(5,5,5,0.72);
+      background-size: 28px 28px, 28px 28px, auto, auto;
+      overflow: hidden;
+    }
+
+    .experience-visual::before,
+    .experience-visual::after {
+      content: "";
+      position: absolute;
+      width: 54px;
+      height: 54px;
+      border-color: rgba(229,34,34,0.7);
+      pointer-events: none;
+    }
+
+    .experience-visual::before {
+      top: 14px;
+      left: 14px;
+      border-top: 1px solid;
+      border-left: 1px solid;
+    }
+
+    .experience-visual::after {
+      right: 14px;
+      bottom: 14px;
+      border-right: 1px solid;
+      border-bottom: 1px solid;
+    }
+
+    .visual-placeholder {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 30px;
+    }
+
+    .visual-placeholder-mark {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--red);
+      font-family: "Orbitron", sans-serif;
+      font-size: clamp(34px, 4vw, 58px);
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      opacity: 0.72;
+    }
+
+    .visual-placeholder-text {
+      color: rgba(241,241,241,0.55);
+      font-family: "Orbitron", sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      line-height: 1.8;
+    }
+
+    .motion-ready .experience-card .experience-copy,
+    .motion-ready .experience-card .experience-visual,
     .motion-ready .experience-card .experience-status {
       opacity: 0;
-      transform: translateY(24px);
       transition: opacity 0.68s ease, transform 0.82s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
-    .motion-ready .experience-card .experience-status {
-      transform: translateY(-12px);
-      transition-delay: 0.08s;
-    }
+    .motion-ready .experience-card .experience-copy { transform: translateX(-26px); }
+    .motion-ready .experience-card .experience-visual { transform: translateX(26px); transition-delay: 0.08s; }
+    .motion-ready .experience-card .experience-status { transform: translateY(-12px); transition-delay: 0.12s; }
 
-    .motion-ready .experience-card h2 { transition-delay: 0.08s; }
-    .motion-ready .experience-card p { transition-delay: 0.16s; }
-
-    .motion-ready .experience-card.is-visible .experience-kicker,
-    .motion-ready .experience-card.is-visible h2,
-    .motion-ready .experience-card.is-visible p,
+    .motion-ready .experience-card.is-visible .experience-copy,
+    .motion-ready .experience-card.is-visible .experience-visual,
     .motion-ready .experience-card.is-visible .experience-status {
       opacity: 1;
       transform: none;
@@ -142,19 +252,29 @@
     header nav a:hover,
     header nav a.active:hover { color: var(--red-bright) !important; }
 
+    @media (max-width: 850px) {
+      .experience-card {
+        grid-template-columns: 1fr;
+        padding: 72px 26px 34px;
+      }
+      .experience-visual {
+        min-height: 260px;
+      }
+      .experience-skills {
+        margin-top: 8px;
+      }
+    }
+
     @media (max-width: 760px) {
       .experience-page { padding: 130px 7vw 90px; }
       .experience-lead { margin-bottom: 52px; }
-      .experience-card { padding: 74px 26px 38px; min-height: 0; }
       .experience-status { top: 20px; right: 20px; }
-      .experience-card h2 { padding-right: 0; }
     }
 
     @media (prefers-reduced-motion: reduce) {
       .experience-card::before { width: 100%; transition: none; }
-      .motion-ready .experience-card .experience-kicker,
-      .motion-ready .experience-card h2,
-      .motion-ready .experience-card p,
+      .motion-ready .experience-card .experience-copy,
+      .motion-ready .experience-card .experience-visual,
       .motion-ready .experience-card .experience-status {
         opacity: 1;
         transform: none;
@@ -184,9 +304,27 @@
     <div class="experience-list">
       <section class="experience-card">
         <div class="experience-status">Ongoing</div>
-        <p class="experience-kicker">UNREAL ENGINE / DIGITAL ARCHIVE</p>
-        <h2>Unreal Engineを用いた寝屋川キャンパスのデジタルアーカイブ制作</h2>
-        <p>Unreal Engineを用いて、寝屋川キャンパスをデジタル空間上に記録・再現する制作に取り組んでいます。</p>
+
+        <div class="experience-copy">
+          <p class="experience-kicker">UNREAL ENGINE / DIGITAL ARCHIVE</p>
+          <h2>Unreal Engineを用いた寝屋川キャンパスのデジタルアーカイブ制作</h2>
+          <p class="experience-description">Unreal Engineを用いて、寝屋川キャンパスをデジタル空間上に記録・再現する制作に取り組んでいます。</p>
+
+          <div class="experience-skills" aria-label="使用スキル">
+            <img class="experience-skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/unrealengine/unrealengine-original.svg" alt="Unreal Engine logo">
+            <div class="experience-skill-meta">
+              <span class="experience-skill-label">SKILL USED</span>
+              <span class="experience-skill-name">Unreal Engine</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="experience-visual" aria-label="制作イメージのプレースホルダー">
+          <div class="visual-placeholder">
+            <span class="visual-placeholder-mark">IMAGE</span>
+            <span class="visual-placeholder-text">PROJECT VISUAL<br>COMING SOON</span>
+          </div>
+        </div>
       </section>
     </div>
   </main>
