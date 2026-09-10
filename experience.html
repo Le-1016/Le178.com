@@ -14,47 +14,78 @@
     .experience-title { margin: 0 0 16px; color: var(--red); font-family: "Orbitron", sans-serif; font-size: clamp(42px, 6.5vw, 88px); font-weight: 800; letter-spacing: 0.07em; }
     .experience-lead { max-width: 780px; margin: 0 0 82px; color: var(--white); line-height: 2; opacity: 0.8; }
     .experience-list { max-width: 1180px; margin: 0 auto; display: grid; gap: 22px; }
-    .experience-card { position: relative; border: 1px solid rgba(229, 34, 34, 0.22); background: linear-gradient(135deg, rgba(13,13,13,0.96), rgba(7,7,7,0.96)); overflow: hidden; }
-    .experience-card::before { content: ""; position: absolute; left: 0; top: 0; width: 0; height: 2px; background: var(--red); transition: width 0.9s cubic-bezier(0.22, 1, 0.36, 1); }
+
+    .experience-card {
+      position: relative;
+      border: 1px solid rgba(229,34,34,0.22);
+      background: linear-gradient(135deg, rgba(13,13,13,0.96), rgba(7,7,7,0.96));
+      overflow: hidden;
+      transition: border-color .25s ease, transform .25s ease, background .25s ease;
+    }
+    .experience-card::before { content: ""; position: absolute; left: 0; top: 0; width: 0; height: 2px; background: var(--red); transition: width .9s cubic-bezier(.22,1,.36,1); }
     .experience-card.is-visible::before { width: 100%; }
-    .experience-toggle { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 28px 32px; border: 0; background: transparent; color: var(--white); text-align: left; cursor: pointer; font: inherit; }
+    .experience-card:hover { border-color: rgba(229,34,34,.52); transform: translateY(-2px); }
+
+    .experience-toggle {
+      width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 24px;
+      padding: 30px 32px; border: 0; background: transparent; color: var(--white); text-align: left; cursor: pointer; font: inherit;
+    }
     .experience-toggle:hover .experience-card-title { color: var(--red-bright); }
     .experience-toggle:focus-visible { outline: 2px solid var(--red-bright); outline-offset: -2px; }
-    .experience-card-title { margin: 0; color: var(--white); font-family: "Noto Serif JP", "Yu Mincho", "Hiragino Mincho ProN", serif; font-size: clamp(19px, 2vw, 28px); font-weight: 700; line-height: 1.6; letter-spacing: 0.02em; transition: color 0.25s ease; }
-    .experience-arrow { flex: 0 0 auto; color: var(--red); font-family: "Orbitron", sans-serif; font-size: 22px; line-height: 1; transform: rotate(0deg); transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1); }
-    .experience-card.is-open .experience-arrow { transform: rotate(45deg); }
-    .experience-details { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
-    .experience-card.is-open .experience-details { grid-template-rows: 1fr; }
-    .experience-details-inner { min-height: 0; overflow: hidden; }
-    .experience-content { position: relative; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr); gap: clamp(34px, 5vw, 74px); min-height: 390px; padding: 18px clamp(32px, 5vw, 64px) clamp(42px, 5vw, 64px); border-top: 1px solid rgba(229,34,34,0.11); align-items: stretch; }
-    .experience-content.no-visual { grid-template-columns: 1fr; min-height: 300px; }
-    .experience-content.no-visual .experience-copy { max-width: 900px; }
-    .experience-status { position: absolute; top: 20px; right: clamp(32px, 5vw, 64px); z-index: 3; padding: 8px 12px; border: 1px solid rgba(229, 34, 34, 0.58); color: var(--red-bright); background: rgba(8,8,8,0.86); font-family: "Orbitron", sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; }
-    .experience-copy { min-width: 0; display: flex; flex-direction: column; justify-content: flex-start; align-items: flex-start; text-align: left; padding-top: 42px; }
-    .experience-kicker { margin: 0 0 18px; color: var(--red); font-family: "Orbitron", sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.17em; }
-    .experience-description { max-width: 620px; margin: 0; color: var(--white); font-size: 15px; line-height: 2; opacity: 0.76; }
-    .experience-content.no-visual .experience-description { max-width: 900px; }
-    .experience-skills { margin-top: auto; padding-top: 34px; display: flex; align-items: center; gap: 14px; }
-    .experience-skill-logo { width: 54px; height: 54px; object-fit: contain; filter: brightness(0) invert(1); }
-    .experience-skill-meta { display: grid; gap: 3px; }
-    .experience-skill-label { color: rgba(241,241,241,0.48); font-family: "Orbitron", sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.16em; }
-    .experience-skill-name { color: var(--red-bright); font-family: "Orbitron", sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; line-height: 1.65; }
-    .experience-visual { min-width: 0; position: relative; display: flex; align-items: center; justify-content: center; margin-top: 42px; border: 1px solid rgba(229,34,34,0.16); background: linear-gradient(rgba(229,34,34,0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(229,34,34,0.045) 1px, transparent 1px), radial-gradient(circle at 50% 45%, rgba(229,34,34,0.08), transparent 58%), rgba(5,5,5,0.72); background-size: 28px 28px, 28px 28px, auto, auto; overflow: hidden; }
-    .experience-visual::before, .experience-visual::after { content: ""; position: absolute; width: 54px; height: 54px; border-color: rgba(229,34,34,0.7); pointer-events: none; }
-    .experience-visual::before { top: 14px; left: 14px; border-top: 1px solid; border-left: 1px solid; }
-    .experience-visual::after { right: 14px; bottom: 14px; border-right: 1px solid; border-bottom: 1px solid; }
-    .visual-placeholder { position: relative; z-index: 1; text-align: center; padding: 30px; }
-    .visual-placeholder-mark { display: block; color: var(--red); font-family: "Orbitron", sans-serif; font-size: clamp(28px, 3vw, 44px); font-weight: 800; letter-spacing: 0.12em; opacity: 0.72; }
-    .motion-ready .experience-card { opacity: 0; transform: translateY(24px); transition: opacity 0.65s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1); }
+    .experience-card-title { margin: 0; color: var(--white); font-family: "Noto Serif JP", "Yu Mincho", "Hiragino Mincho ProN", serif; font-size: clamp(19px,2vw,28px); font-weight: 700; line-height: 1.6; letter-spacing: .02em; transition: color .25s ease; }
+    .experience-arrow { flex: 0 0 auto; color: var(--red); font-family: "Orbitron", sans-serif; font-size: 22px; line-height: 1; transition: transform .25s ease; }
+    .experience-card:hover .experience-arrow { transform: translateX(4px); }
+
+    .experience-modal {
+      position: fixed; inset: 0; z-index: 9999; display: none; align-items: center; justify-content: center;
+      padding: 28px; background: rgba(0,0,0,.78); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    }
+    .experience-modal.is-open { display: flex; }
+    .experience-modal-panel {
+      position: relative; width: min(980px, 100%); max-height: min(82vh, 760px); overflow: auto;
+      border: 1px solid rgba(229,34,34,.38); background: linear-gradient(145deg, rgba(14,14,14,.99), rgba(5,5,5,.99));
+      box-shadow: 0 26px 80px rgba(0,0,0,.72); padding: clamp(32px,5vw,58px);
+    }
+    .experience-modal-panel::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: var(--red); }
+    .modal-close { position: absolute; top: 18px; right: 20px; width: 42px; height: 42px; border: 1px solid rgba(229,34,34,.35); background: rgba(8,8,8,.9); color: var(--white); font-size: 24px; cursor: pointer; }
+    .modal-close:hover { color: var(--red-bright); border-color: var(--red); }
+    .modal-status { display: inline-block; margin: 0 0 24px; padding: 7px 11px; border: 1px solid rgba(229,34,34,.58); color: var(--red-bright); font-family: "Orbitron", sans-serif; font-size: 10px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+    .modal-kicker { margin: 0 0 16px; color: var(--red); font-family: "Orbitron", sans-serif; font-size: 11px; font-weight: 700; letter-spacing: .16em; }
+    .modal-title { margin: 0 0 26px; color: var(--white); font-family: "Noto Serif JP", serif; font-size: clamp(24px,3vw,36px); line-height: 1.55; }
+    .modal-description { margin: 0; color: var(--white); font-size: 15px; line-height: 2; opacity: .78; }
+    .modal-bottom { margin-top: 36px; display: grid; grid-template-columns: minmax(0,1fr) minmax(260px,.8fr); gap: 34px; align-items: end; }
+    .modal-skill { display: flex; align-items: center; gap: 14px; }
+    .modal-skill-logo { width: 56px; height: 56px; object-fit: contain; filter: brightness(0) invert(1); }
+    .modal-skill-meta { display: grid; gap: 4px; }
+    .modal-skill-label { color: rgba(241,241,241,.48); font-family: "Orbitron", sans-serif; font-size: 10px; font-weight: 700; letter-spacing: .16em; }
+    .modal-skill-name { color: var(--red-bright); font-family: "Orbitron", sans-serif; font-size: 14px; font-weight: 700; letter-spacing: .08em; }
+    .modal-visual { min-height: 190px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(229,34,34,.16); background: linear-gradient(rgba(229,34,34,.045) 1px,transparent 1px), linear-gradient(90deg,rgba(229,34,34,.045) 1px,transparent 1px), rgba(5,5,5,.72); background-size: 28px 28px; }
+    .modal-visual span { color: var(--red); font-family: "Orbitron", sans-serif; font-size: clamp(24px,3vw,38px); font-weight: 800; letter-spacing: .12em; opacity: .72; }
+    .modal-bottom.no-visual { grid-template-columns: 1fr; }
+
+    .motion-ready .experience-card { opacity: 0; transform: translateY(24px); transition: opacity .65s ease, transform .8s cubic-bezier(.22,1,.36,1), border-color .25s ease; }
     .motion-ready .experience-card.is-visible { opacity: 1; transform: none; }
-    nav a.active { color: var(--red-bright); text-shadow: 0 0 10px rgba(229,34,34,0.45); }
+
+    nav a.active { color: var(--red-bright); text-shadow: 0 0 10px rgba(229,34,34,.45); }
     header .logo { color: var(--white) !important; text-shadow: none !important; }
     header .logo span { color: var(--red) !important; }
     header nav a, header nav a.active { color: var(--white) !important; text-shadow: none !important; }
     header nav a:hover, header nav a.active:hover { color: var(--red-bright) !important; }
-    @media (max-width: 850px) { .experience-toggle { padding: 24px 24px; } .experience-content { grid-template-columns: 1fr; padding: 18px 26px 34px; } .experience-status { right: 26px; } .experience-visual { min-height: 260px; margin-top: 0; } .experience-skills { margin-top: 8px; } }
-    @media (max-width: 760px) { .experience-page { padding: 130px 7vw 90px; } .experience-lead { margin-bottom: 52px; } .experience-toggle { padding: 22px 20px; gap: 16px; } .experience-card-title { font-size: 18px; } }
-    @media (prefers-reduced-motion: reduce) { .experience-card::before { width: 100%; transition: none; } .motion-ready .experience-card { opacity: 1; transform: none; transition: none; } .experience-details, .experience-arrow { transition: none; } }
+
+    @media (max-width: 760px) {
+      .experience-page { padding: 130px 7vw 90px; }
+      .experience-lead { margin-bottom: 52px; }
+      .experience-toggle { padding: 22px 20px; gap: 16px; }
+      .experience-card-title { font-size: 18px; }
+      .experience-modal { padding: 16px; }
+      .experience-modal-panel { max-height: 88vh; padding: 54px 24px 30px; }
+      .modal-bottom { grid-template-columns: 1fr; }
+      .modal-visual { min-height: 180px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .experience-card::before { width: 100%; transition: none; }
+      .motion-ready .experience-card { opacity: 1; transform: none; transition: none; }
+    }
   </style>
 </head>
 <body>
@@ -69,50 +100,99 @@
       <a href="career.html">CAREER</a>
     </nav>
   </header>
+
   <main class="experience-page">
     <h1 class="experience-title">EXPERIENCE</h1>
     <p class="experience-lead">授業・制作・プロジェクトなどを通して取り組んでいる実践経験をまとめています。</p>
+
     <div class="experience-list">
-      <section class="experience-card">
-        <button class="experience-toggle" type="button" aria-expanded="false"><h2 class="experience-card-title">Unreal Engineを用いた寝屋川キャンパスのデジタルアーカイブ制作</h2><span class="experience-arrow" aria-hidden="true">＋</span></button>
-        <div class="experience-details"><div class="experience-details-inner"><div class="experience-content">
-          <div class="experience-status">Ongoing</div>
-          <div class="experience-copy">
-            <p class="experience-kicker">UNREAL ENGINE / DIGITAL ARCHIVE</p>
-            <p class="experience-description">Unreal Engineを用いて、寝屋川キャンパスをデジタル空間上に記録・再現する制作に取り組んでいます。</p>
-            <div class="experience-skills" aria-label="使用スキル"><img class="experience-skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/unrealengine/unrealengine-original.svg" alt="Unreal Engine logo"><div class="experience-skill-meta"><span class="experience-skill-label">SKILL</span><span class="experience-skill-name">Unreal Engine</span></div></div>
-          </div>
-          <div class="experience-visual" aria-label="画像なし"><div class="visual-placeholder"><span class="visual-placeholder-mark">NO IMAGE</span></div></div>
-        </div></div></div>
+      <section class="experience-card" data-modal="chatgpt-modal">
+        <button class="experience-toggle" type="button" aria-haspopup="dialog">
+          <h2 class="experience-card-title">ChatGPT「Try again / Regenerate」挙動の検証・OpenAIサポートへの報告</h2>
+          <span class="experience-arrow" aria-hidden="true">→</span>
+        </button>
       </section>
-      <section class="experience-card">
-        <button class="experience-toggle" type="button" aria-expanded="false"><h2 class="experience-card-title">ChatGPT「Try again / Regenerate」挙動の検証・OpenAIサポートへの報告</h2><span class="experience-arrow" aria-hidden="true">＋</span></button>
-        <div class="experience-details"><div class="experience-details-inner"><div class="experience-content no-visual">
-          <div class="experience-status">Ongoing</div>
-          <div class="experience-copy">
-            <p class="experience-kicker">AI BEHAVIOR / VERIFICATION</p>
-            <p class="experience-description">ChatGPTで回答を再生成した際に、画面上から見えなくなった再生成前の回答を後続のAIが参照しているように見える現象を確認し、OpenAIサポートへ報告しました。Windows版・Web版、Memory有効／無効、Temporary Chat、ログアウト状態、複数モデルなどの条件を比較し、再現性と原因候補を切り分けました。また、モデルが同一プロンプトに対して同じ値を生成しやすい可能性も考慮し、Memory漏えいやプライバシー問題とは断定せず、再現動画・環境情報・conversation ID等を提出して内部ログでの確認を依頼しています。</p>
-            <div class="experience-skills" aria-label="使用スキル"><img class="experience-skill-logo" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/openai.svg" alt="OpenAI logo"><span class="experience-skill-name">Codex</span></div>
-          </div>
-        </div></div></div>
+
+      <section class="experience-card" data-modal="unreal-modal">
+        <button class="experience-toggle" type="button" aria-haspopup="dialog">
+          <h2 class="experience-card-title">Unreal Engineを用いた寝屋川キャンパスのデジタルアーカイブ制作</h2>
+          <span class="experience-arrow" aria-hidden="true">→</span>
+        </button>
       </section>
     </div>
   </main>
+
+  <div class="experience-modal" id="chatgpt-modal" role="dialog" aria-modal="true" aria-labelledby="chatgpt-title">
+    <div class="experience-modal-panel">
+      <button class="modal-close" type="button" aria-label="閉じる">×</button>
+      <span class="modal-status">Ongoing</span>
+      <p class="modal-kicker">AI BEHAVIOR / VERIFICATION</p>
+      <h2 class="modal-title" id="chatgpt-title">ChatGPT「Try again / Regenerate」挙動の検証・OpenAIサポートへの報告</h2>
+      <p class="modal-description">ChatGPTで回答を再生成した際に、画面上から見えなくなった再生成前の回答を後続のAIが参照しているように見える現象を確認し、OpenAIサポートへ報告しました。Windows版・Web版、Memory有効／無効、Temporary Chat、ログアウト状態、複数モデルなどの条件を比較し、再現性と原因候補を切り分けました。また、モデルが同一プロンプトに対して同じ値を生成しやすい可能性も考慮し、Memory漏えいやプライバシー問題とは断定せず、再現動画・環境情報・conversation ID等を提出して内部ログでの確認を依頼しています。</p>
+      <div class="modal-bottom no-visual">
+        <div class="modal-skill" aria-label="使用スキル">
+          <img class="modal-skill-logo" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/openai.svg" alt="OpenAI logo">
+          <div class="modal-skill-meta"><span class="modal-skill-label">SKILL</span><span class="modal-skill-name">Codex</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="experience-modal" id="unreal-modal" role="dialog" aria-modal="true" aria-labelledby="unreal-title">
+    <div class="experience-modal-panel">
+      <button class="modal-close" type="button" aria-label="閉じる">×</button>
+      <span class="modal-status">Ongoing</span>
+      <p class="modal-kicker">UNREAL ENGINE / DIGITAL ARCHIVE</p>
+      <h2 class="modal-title" id="unreal-title">Unreal Engineを用いた寝屋川キャンパスのデジタルアーカイブ制作</h2>
+      <p class="modal-description">Unreal Engineを用いて、寝屋川キャンパスをデジタル空間上に記録・再現する制作に取り組んでいます。</p>
+      <div class="modal-bottom">
+        <div class="modal-skill" aria-label="使用スキル">
+          <img class="modal-skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/unrealengine/unrealengine-original.svg" alt="Unreal Engine logo">
+          <div class="modal-skill-meta"><span class="modal-skill-label">SKILL</span><span class="modal-skill-name">Unreal Engine</span></div>
+        </div>
+        <div class="modal-visual" aria-label="画像なし"><span>NO IMAGE</span></div>
+      </div>
+    </div>
+  </div>
+
   <script>
     (() => {
       const cards = [...document.querySelectorAll('.experience-card')];
-      if (!cards.length) return;
+      const modals = [...document.querySelectorAll('.experience-modal')];
       const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (!reduceMotion) document.documentElement.classList.add('motion-ready');
+
+      const closeModal = (modal) => {
+        if (!modal) return;
+        modal.classList.remove('is-open');
+        document.body.style.overflow = '';
+      };
+
       cards.forEach((card) => {
         const button = card.querySelector('.experience-toggle');
         button.addEventListener('click', () => {
-          const willOpen = !card.classList.contains('is-open');
-          card.classList.toggle('is-open', willOpen);
-          button.setAttribute('aria-expanded', String(willOpen));
+          const modal = document.getElementById(card.dataset.modal);
+          if (!modal) return;
+          modal.classList.add('is-open');
+          document.body.style.overflow = 'hidden';
+          modal.querySelector('.modal-close')?.focus();
         });
       });
-      if (reduceMotion || !('IntersectionObserver' in window)) { cards.forEach((card) => card.classList.add('is-visible')); return; }
+
+      modals.forEach((modal) => {
+        modal.querySelector('.modal-close')?.addEventListener('click', () => closeModal(modal));
+        modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(modal); });
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key !== 'Escape') return;
+        closeModal(document.querySelector('.experience-modal.is-open'));
+      });
+
+      if (reduceMotion || !('IntersectionObserver' in window)) {
+        cards.forEach((card) => card.classList.add('is-visible'));
+        return;
+      }
       const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
