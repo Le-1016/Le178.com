@@ -114,15 +114,15 @@
       <p class="modal-kicker">AI BEHAVIOR / VERIFICATION</p>
       <h2 class="modal-title" id="chatgpt-title">ChatGPT「Try again / Regenerate」挙動の検証・OpenAIサポートへの報告</h2>
 
-      <p class="modal-description">ChatGPTで「Try again／再生成」を使用したところ、画面から見えなくなった再生成前の回答内容を、その後のAIが参照しているように見える現象を発見した。この挙動では、利用者から見えない会話ブランチが後続の回答に影響している可能性があるため、UI上の分かりにくさとプライバシー上の懸念を含め、改善してほしいとOpenAI Supportに問い合わせた。</p>
-      <p class="modal-description">OpenAI Supportからは、現時点ではこの挙動を通常の仕様とも確認済みの不具合とも断定できないため、まずWindowsアプリの再起動、再ログイン、最新版への更新、Web版や新規チャットでの再現確認などを行うよう案内された。また、現象が続く場合には、「Try again」を使用する前後と、非表示になった回答内容を後続のAIが参照する様子が分かる画面録画を提出してほしいと依頼された。</p>
-      <p class="modal-description">そこで、個人情報を含まない新規チャットを使い、AIにランダムな12桁の番号を生成させる検証を行った。最初に「583104927641」が生成され、その回答に対して「Try again」を使用すると「729406185237」という別の番号が表示された。その後、「最初に生成した番号は何ですか」と質問したところ、画面から見えなくなっていた最初の番号「583104927641」が正確に回答された。この一連の挙動を画面録画し、MP4形式でOpenAI Supportへ提出した。</p>
-      <p class="modal-description">OpenAI Supportは画面録画を確認したうえで、原因をさらに切り分けるため、WindowsアプリとWeb版、Memoryの有効時と無効時、通常チャットとTemporary Chatの各条件で、同じ制御テストを行うよう依頼した。また、使用した正確なモデル、モデル変更の有無、会話URLまたはconversation ID、さらに「Branch in new chat」ではなく「Try again／Regenerate」を使用したことの確認も求められた。</p>
-      <p class="modal-description">依頼に基づき、WindowsとWebの両方で、通常チャットのMemory有効・無効、およびTemporary Chatという計6条件の比較検証を行った。その結果、主に使用したGPT-5.6 Solでは、すべての条件で同様の現象が確認された。また、Memoryを無効にした状態やTemporary Chat、さらに完全にログアウトした状態でも、同じ、または非常によく似た番号が生成される場合があった。</p>
-      <p class="modal-description">追加でモデルによる違いを調べるため、Web版において、最初の生成に使用したGPT-5.6 SolからGPT-6 Astraへモデルを変更して検証した。その結果、ログイン済み・Memory無効・新規チャットという条件では、GPT-5.6 Solで確認された「最初に同じ番号が生成される現象」は、GPT-6 Astraでは確認されなかった。この結果から、Memoryやログイン状態だけでなく、使用モデル固有の生成特性が影響している可能性も考えられた。</p>
-      <p class="modal-description">検証を続ける中で、GPT-5.6 Solに「ランダムな12桁の番号」を求めると、「583104927641」または「583104927661」のどちらかが最初に生成されやすいことも分かった。このため、同じ番号が複数のチャットで生成された事実だけでは、過去の会話やMemoryが参照された証拠とは断定できず、GPT-5.6 Solが特定の番号を出力しやすいという生成上の偏りが、検証結果に影響した可能性もOpenAI Supportへ報告した。</p>
-      <p class="modal-description">OpenAI Supportには、条件別のテスト結果に加えて、完全ログアウト状態での会話URLと、ログイン済み・Memory無効の状態でGPT-5.6 SolからGPT-6 Astraへ変更した会話URLを提出した。また、再現時に使用したWindowsデスクトップアプリのバージョンが「1.2026.190」であることと、操作には「Branch in new chat」ではなく、回答下の「Try again／Regenerate」を使用したことも回答した。</p>
-      <p class="modal-description">現在、OpenAI Supportは、提出された画面録画、条件別の検証結果、会話URL、アプリのバージョンおよび操作方法を記録し、挙動の原因を調査するための情報を整理している段階である。現時点では、非表示の会話ブランチが実際に後続コンテキストへ含まれていたのか、GPT-5.6 Solの決定的な生成傾向によって同じ番号が再現されたのかは確定していない。今後、必要であれば、Pythonのsecretsなど外部の暗号学的乱数生成機能を使用し、モデル自身が生成しやすい番号の偏りを排除した追加検証を行うことも検討している。</p>
+      <p class="modal-description">　ChatGPTで「Try again／再生成」を使用したところ、画面から見えなくなった再生成前の回答内容を、その後のAIが参照しているように見える現象を発見した。この挙動では、利用者から見えない会話ブランチが後続の回答に影響している可能性があるため、UI上の分かりにくさとプライバシー上の懸念を含め、改善してほしいとOpenAI Supportに問い合わせた。</p>
+      <p class="modal-description">　OpenAI Supportからは、現時点ではこの挙動を通常の仕様とも確認済みの不具合とも断定できないため、まずWindowsアプリの再起動、再ログイン、最新版への更新、Web版や新規チャットでの再現確認などを行うよう案内された。また、現象が続く場合には、「Try again」を使用する前後と、非表示になった回答内容を後続のAIが参照する様子が分かる画面録画を提出してほしいと依頼された。</p>
+      <p class="modal-description">　そこで、個人情報を含まない新規チャットを使い、AIにランダムな12桁の番号を生成させる検証を行った。最初に「583104927641」が生成され、その回答に対して「Try again」を使用すると「729406185237」という別の番号が表示された。その後、「最初に生成した番号は何ですか」と質問したところ、画面から見えなくなっていた最初の番号「583104927641」が正確に回答された。この一連の挙動を画面録画し、MP4形式でOpenAI Supportへ提出した。</p>
+      <p class="modal-description">　OpenAI Supportは画面録画を確認したうえで、原因をさらに切り分けるため、WindowsアプリとWeb版、Memoryの有効時と無効時、通常チャットとTemporary Chatの各条件で、同じ制御テストを行うよう依頼した。また、使用した正確なモデル、モデル変更の有無、会話URLまたはconversation ID、さらに「Branch in new chat」ではなく「Try again／Regenerate」を使用したことの確認も求められた。</p>
+      <p class="modal-description">　依頼に基づき、WindowsとWebの両方で、通常チャットのMemory有効・無効、およびTemporary Chatという計6条件の比較検証を行った。その結果、主に使用したGPT-5.6 Solでは、すべての条件で同様の現象が確認された。また、Memoryを無効にした状態やTemporary Chat、さらに完全にログアウトした状態でも、同じ、または非常によく似た番号が生成される場合があった。</p>
+      <p class="modal-description">　追加でモデルによる違いを調べるため、Web版において、最初の生成に使用したGPT-5.6 SolからGPT-6 Astraへモデルを変更して検証した。その結果、ログイン済み・Memory無効・新規チャットという条件では、GPT-5.6 Solで確認された「最初に同じ番号が生成される現象」は、GPT-6 Astraでは確認されなかった。この結果から、Memoryやログイン状態だけでなく、使用モデル固有の生成特性が影響している可能性も考えられた。</p>
+      <p class="modal-description">　検証を続ける中で、GPT-5.6 Solに「ランダムな12桁の番号」を求めると、「583104927641」または「583104927661」のどちらかが最初に生成されやすいことも分かった。このため、同じ番号が複数のチャットで生成された事実だけでは、過去の会話やMemoryが参照された証拠とは断定できず、GPT-5.6 Solが特定の番号を出力しやすいという生成上の偏りが、検証結果に影響した可能性もOpenAI Supportへ報告した。</p>
+      <p class="modal-description">　OpenAI Supportには、条件別のテスト結果に加えて、完全ログアウト状態での会話URLと、ログイン済み・Memory無効の状態でGPT-5.6 SolからGPT-6 Astraへ変更した会話URLを提出した。また、再現時に使用したWindowsデスクトップアプリのバージョンが「1.2026.190」であることと、操作には「Branch in new chat」ではなく、回答下の「Try again／Regenerate」を使用したことも回答した。</p>
+      <p class="modal-description">　現在、OpenAI Supportは、提出された画面録画、条件別の検証結果、会話URL、アプリのバージョンおよび操作方法を記録し、挙動の原因を調査するための情報を整理している段階である。現時点では、非表示の会話ブランチが実際に後続コンテキストへ含まれていたのか、GPT-5.6 Solの決定的な生成傾向によって同じ番号が再現されたのかは確定していない。今後、必要であれば、Pythonのsecretsなど外部の暗号学的乱数生成機能を使用し、モデル自身が生成しやすい番号の偏りを排除した追加検証を行うことも検討している。</p>
 
       <div class="modal-bottom no-visual">
         <div class="modal-skill" aria-label="使用スキル">
