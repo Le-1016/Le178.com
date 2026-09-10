@@ -88,6 +88,13 @@
       border-top: 1px solid rgba(229,34,34,0.11);
       align-items: stretch;
     }
+    .experience-content.no-visual {
+      grid-template-columns: 1fr;
+      min-height: 300px;
+    }
+    .experience-content.no-visual .experience-copy {
+      max-width: 900px;
+    }
     .experience-status {
       position: absolute;
       top: 20px;
@@ -106,6 +113,7 @@
     .experience-copy { min-width: 0; display: flex; flex-direction: column; justify-content: flex-start; align-items: flex-start; text-align: left; padding-top: 42px; }
     .experience-kicker { margin: 0 0 18px; color: var(--red); font-family: "Orbitron", sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.17em; }
     .experience-description { max-width: 620px; margin: 0; color: var(--white); font-size: 15px; line-height: 2; opacity: 0.76; }
+    .experience-content.no-visual .experience-description { max-width: 900px; }
     .experience-skills { margin-top: auto; padding-top: 34px; display: flex; align-items: center; gap: 14px; }
     .experience-skill-logo { width: 54px; height: 54px; object-fit: contain; filter: brightness(0) saturate(100%) invert(24%) sepia(94%) saturate(5107%) hue-rotate(350deg) brightness(103%) contrast(96%); }
     .experience-skill-meta { display: grid; gap: 3px; }
@@ -206,17 +214,15 @@
         </button>
         <div class="experience-details">
           <div class="experience-details-inner">
-            <div class="experience-content">
+            <div class="experience-content no-visual">
               <div class="experience-status">Ongoing</div>
               <div class="experience-copy">
                 <p class="experience-kicker">AI BEHAVIOR / VERIFICATION</p>
                 <p class="experience-description">ChatGPTで回答を再生成した際に、画面上から見えなくなった再生成前の回答を後続のAIが参照しているように見える現象を確認し、OpenAIサポートへ報告しました。Windows版・Web版、Memory有効／無効、Temporary Chat、ログアウト状態、複数モデルなどの条件を比較し、再現性と原因候補を切り分けました。また、モデルが同一プロンプトに対して同じ値を生成しやすい可能性も考慮し、Memory漏えいやプライバシー問題とは断定せず、再現動画・環境情報・conversation ID等を提出して内部ログでの確認を依頼しています。</p>
-                <div class="experience-skills" aria-label="使用・実践スキル">
-                  <img class="experience-skill-logo" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/openai.svg" alt="OpenAI logo">
-                  <div class="experience-skill-meta"><span class="experience-skill-label">SKILLS</span><span class="experience-skill-name">AI Behavior Analysis<br>Debugging / Reproducibility / Technical Reporting</span></div>
+                <div class="experience-skills" aria-label="使用スキル">
+                  <span class="experience-skill-name">Codex</span>
                 </div>
               </div>
-              <div class="experience-visual" aria-label="画像なし"><div class="visual-placeholder"><span class="visual-placeholder-mark">NO IMAGE</span></div></div>
             </div>
           </div>
         </div>
