@@ -145,7 +145,7 @@
     <a href="#" class="logo"><span>Le</span>PORTFOLIO<span>.</span></a>
     <nav>
       <a href="skill.html">SKILL</a>
-      <a href="#activity">BLOG</a>
+      <a href="blog.html">BLOG</a>
       <a href="certification.html">CERTIFICATION</a>
       <a href="experience.html">EXPERIENCE</a>
       <a href="career.html">CAREER</a>
@@ -210,6 +210,10 @@
 
   <script>
     (() => {
+      if (window.location.hash === '#activity') {
+        window.location.replace('blog.html');
+        return;
+      }
       const profile = document.querySelector('.profile');
       if (!profile) return;
       const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
