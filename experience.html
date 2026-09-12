@@ -12,19 +12,19 @@
   <style>
     .experience-page { min-height: 100vh; padding: 150px 7vw 120px; position: relative; z-index: 2; }
     .experience-title { margin: 0 0 16px; color: var(--red); font-family: "Orbitron", sans-serif; font-size: clamp(42px, 6.5vw, 88px); font-weight: 800; letter-spacing: 0.07em; }
-    .experience-lead { max-width: 780px; margin: 0 0 82px; color: var(--white); line-height: 2; opacity: 0.8; }
+    .experience-lead { max-width: 780px; margin: 0 0 36px; color: var(--white); line-height: 2; opacity: 0.8; }
     .experience-list { max-width: 1180px; margin: 0 auto; border-top: 1px solid rgba(229,34,34,.24); }
 
     .experience-card { position: relative; border-bottom: 1px solid rgba(229,34,34,.24); background: transparent; overflow: hidden; }
     .experience-card::before { content: ""; position: absolute; left: 0; bottom: -1px; width: 0; height: 1px; background: var(--red); transition: width .7s cubic-bezier(.22,1,.36,1); }
     .experience-card:hover::before, .experience-card:focus-within::before { width: 100%; }
 
-    .experience-toggle { width: 100%; min-height: 88px; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 22px 4px; border: 0; background: transparent; color: var(--white); text-align: left; cursor: pointer; font: inherit; }
+    .experience-toggle { width: 100%; min-height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 13px 4px; border: 0; background: transparent; color: var(--white); text-align: left; cursor: pointer; font: inherit; }
     .experience-toggle:hover .experience-card-title { color: var(--red-bright); }
     .experience-toggle:focus-visible { outline: 1px solid var(--red-bright); outline-offset: 6px; }
-    .experience-card-title { margin: 0; color: var(--white); font-family: "Noto Serif JP", "Yu Mincho", "Hiragino Mincho ProN", serif; font-size: clamp(17px,1.7vw,24px); font-weight: 600; line-height: 1.55; letter-spacing: .02em; transition: color .25s ease, transform .25s ease; }
+    .experience-card-title { margin: 0; color: var(--white); font-family: "Noto Serif JP", "Yu Mincho", "Hiragino Mincho ProN", serif; font-size: clamp(16px,1.55vw,22px); font-weight: 600; line-height: 1.45; letter-spacing: .02em; transition: color .25s ease, transform .25s ease; }
     .experience-toggle:hover .experience-card-title { transform: translateX(6px); }
-    .experience-arrow { flex: 0 0 auto; color: var(--red); font-family: "Orbitron", sans-serif; font-size: 20px; line-height: 1; transition: transform .25s ease; }
+    .experience-arrow { flex: 0 0 auto; color: var(--red); font-family: "Orbitron", sans-serif; font-size: 18px; line-height: 1; transition: transform .25s ease; }
     .experience-card:hover .experience-arrow { transform: translateX(5px); }
 
     .experience-modal { position: fixed; inset: 0; z-index: 9999; display: none; align-items: center; justify-content: center; padding: 28px; background: rgba(0,0,0,.78); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
@@ -50,7 +50,7 @@
     .modal-visual span { color: var(--red); font-family: "Orbitron", sans-serif; font-size: clamp(24px,3vw,38px); font-weight: 800; letter-spacing: .12em; opacity: .72; }
     .modal-bottom.no-visual { grid-template-columns: 1fr; }
 
-    .motion-ready .experience-card { opacity: 0; transform: translateY(16px); transition: opacity .55s ease, transform .7s cubic-bezier(.22,1,.36,1); }
+    .motion-ready .experience-card { opacity: 0; transform: translateY(12px); transition: opacity .5s ease, transform .65s cubic-bezier(.22,1,.36,1); }
     .motion-ready .experience-card.is-visible { opacity: 1; transform: none; }
 
     nav a.active { color: var(--red-bright); text-shadow: 0 0 10px rgba(229,34,34,.45); }
@@ -61,10 +61,10 @@
 
     @media (max-width: 760px) {
       .experience-page { padding: 120px 7vw 80px; }
-      .experience-lead { margin-bottom: 42px; }
-      .experience-toggle { min-height: 72px; padding: 18px 2px; gap: 14px; }
-      .experience-card-title { font-size: 16px; line-height: 1.55; }
-      .experience-arrow { font-size: 18px; }
+      .experience-lead { margin-bottom: 24px; }
+      .experience-toggle { min-height: 56px; padding: 10px 2px; gap: 12px; }
+      .experience-card-title { font-size: 15px; line-height: 1.45; }
+      .experience-arrow { font-size: 16px; }
       .experience-modal { padding: 12px; }
       .experience-modal-panel { max-height: 90vh; padding: 54px 20px 28px; }
       .modal-bottom { grid-template-columns: 1fr; }
