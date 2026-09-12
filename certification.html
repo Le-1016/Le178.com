@@ -68,16 +68,20 @@
   </header>
   <main class="cert-page">
     <h1 class="cert-title">CERTIFICATION</h1>
-    <p class="cert-lead">取得した資格を掲載しています。資格名をクリックすると詳細を表示します。</p>
+    <p class="cert-lead">取得した資格・修了した講習を掲載しています。名称をクリックすると詳細を表示します。</p>
     <div class="cert-list">
       <section class="cert-item" data-modal="genai-modal"><button class="cert-toggle" type="button" aria-haspopup="dialog"><h2 class="cert-name">生成AIパスポート（GUGA）</h2><span class="cert-arrow" aria-hidden="true">→</span></button></section>
       <section class="cert-item" data-modal="g-modal"><button class="cert-toggle" type="button" aria-haspopup="dialog"><h2 class="cert-name">G検定（JDLA）</h2><span class="cert-arrow" aria-hidden="true">→</span></button></section>
       <section class="cert-item" data-modal="sg-modal"><button class="cert-toggle" type="button" aria-haspopup="dialog"><h2 class="cert-name">情報セキュリティマネジメント試験（IPA）</h2><span class="cert-arrow" aria-hidden="true">→</span></button></section>
+      <section class="cert-item" data-modal="sogo-modal"><button class="cert-toggle" type="button" aria-haspopup="dialog"><h2 class="cert-name">ディープラーニングの基礎（総合課題実習1）</h2><span class="cert-arrow" aria-hidden="true">→</span></button></section>
+      <section class="cert-item" data-modal="bootcamp-modal"><button class="cert-toggle" type="button" aria-haspopup="dialog"><h2 class="cert-name">高専AI実践ブートキャンプ2026（東京大学 松尾・岩澤研究室）</h2><span class="cert-arrow" aria-hidden="true">→</span></button></section>
     </div>
   </main>
   <div class="cert-modal" id="genai-modal" role="dialog" aria-modal="true" aria-labelledby="genai-title"><div class="cert-modal-panel"><button class="modal-close" type="button" aria-label="閉じる">×</button><span class="modal-status">PASSED</span><h2 class="modal-title" id="genai-title">生成AIパスポート（GUGA）</h2><p class="modal-description">生成AIの仕組みや活用方法に加え、情報漏洩・権利侵害などのリスク、法律やガバナンスについて学ぶために取得しました。AIを安全に活用し、将来その社会実装を評価・監査するための基礎としています。</p></div></div>
   <div class="cert-modal" id="g-modal" role="dialog" aria-modal="true" aria-labelledby="g-title"><div class="cert-modal-panel"><button class="modal-close" type="button" aria-label="閉じる">×</button><span class="modal-status">PASSED</span><h2 class="modal-title" id="g-title">G検定（JDLA）</h2><p class="modal-description">AI・機械学習・ディープラーニングの基礎から、法律・倫理・プライバシー・公平性・安全性・セキュリティ・AIガバナンスまで幅広く学びました。技術と社会実装の両面からAIを考えるための基礎としています。</p></div></div>
   <div class="cert-modal" id="sg-modal" role="dialog" aria-modal="true" aria-labelledby="sg-title"><div class="cert-modal-panel"><button class="modal-close" type="button" aria-label="閉じる">×</button><span class="modal-status">PASSED</span><h2 class="modal-title" id="sg-title">情報セキュリティマネジメント試験（IPA）</h2><p class="modal-description">情報セキュリティに関する基礎知識と、組織におけるリスク管理・対策の考え方を身につけるために取得しました。AIの導入や運用を考える際にも、セキュリティを重要な評価軸として扱うための基礎としています。</p></div></div>
+  <div class="cert-modal" id="sogo-modal" role="dialog" aria-modal="true" aria-labelledby="sogo-title"><div class="cert-modal-panel"><button class="modal-close" type="button" aria-label="閉じる">×</button><span class="modal-status">COMPLETED</span><h2 class="modal-title" id="sogo-title">ディープラーニングの基礎（総合課題実習1）</h2><p class="modal-description">総合課題実習1のテーマとして、IT業界の構造、人工知能・機械学習、ディープラーニングの概要と要素技術、データ分析、AIの社会実装、法律・倫理、情報セキュリティまで体系的に学びました。データ分析演習や生成AIを活用したバイブコーディングにも取り組み、最終日にはG検定に準ずる約40問の試験、高専DCONを題材としたアイディアソン、ディープラーニングを活用するアイディア提案・発表を実施しました。AI技術そのものだけでなく、社会実装時のリスク・法務・倫理・セキュリティまで含めて考える基礎を身につける実習として履修しました。</p></div></div>
+  <div class="cert-modal" id="bootcamp-modal" role="dialog" aria-modal="true" aria-labelledby="bootcamp-title"><div class="cert-modal-panel"><button class="modal-close" type="button" aria-label="閉じる">×</button><span class="modal-status">COMPLETED</span><h2 class="modal-title" id="bootcamp-title">高専AI実践ブートキャンプ2026（東京大学 松尾・岩澤研究室）</h2><p class="modal-description">高専生向けに構成されたAI実践講座で、Google Colabを用いてデータ分析・機械学習・ディープラーニングを基礎から実装まで体系的に学びました。NumPy、Pandas、Matplotlib、Scikit-learn、PyTorchを用いた演習に加え、予測モデル構築、画像分類、CNN、転移学習、Transformer、LLM、生成AI、世界モデル、Physical AIまで幅広く扱い、実データを用いた分析やAIコンペを通じてモデルを構築・改善する実践力を身につけました。AIの社会実装を監査するうえでも、モデルがどのようなデータ・手法・実装過程で作られ、どこに技術的な限界やリスクが生じるのかを理解するための重要な学習経験としています。</p></div></div>
   <script>
     (() => {
       const items = [...document.querySelectorAll('.cert-item')];
