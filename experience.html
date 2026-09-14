@@ -35,6 +35,7 @@
     .modal-close:hover { color: var(--red-bright); border-color: var(--red); }
     .modal-status-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin: 0 0 24px; }
     .modal-status { display: inline-block; margin: 0; padding: 7px 11px; border: 1px solid rgba(229,34,34,.58); color: var(--red-bright); font-family: "Noto Serif JP", "Yu Mincho", "Hiragino Mincho ProN", serif; font-size: 13px; font-weight: 700; letter-spacing: .08em; }
+    .modal-status.completed { border-color: rgba(67,190,105,.72); color: #62d783; }
     .modal-updated { color: rgba(241,241,241,.55); font-family: "Orbitron", sans-serif; font-size: 10px; font-weight: 600; letter-spacing: .12em; }
     .modal-kicker { margin: 0 0 16px; color: var(--red); font-family: "Orbitron", sans-serif; font-size: 11px; font-weight: 700; letter-spacing: .16em; }
     .modal-title { margin: 0 0 26px; color: var(--white); font-family: "Noto Serif JP", serif; font-size: clamp(24px,3vw,36px); line-height: 1.55; }
@@ -112,7 +113,7 @@
   <div class="experience-modal" id="chatgpt-modal" role="dialog" aria-modal="true" aria-labelledby="chatgpt-title">
     <div class="experience-modal-panel">
       <button class="modal-close" type="button" aria-label="閉じる">×</button>
-      <div class="modal-status-row"><span class="modal-status">検証中</span><span class="modal-updated">2026/9/10 THU 更新</span></div>
+      <div class="modal-status-row"><span class="modal-status completed">検証終了</span><span class="modal-updated">2026/9/14 MON 更新</span></div>
       <p class="modal-kicker">AI BEHAVIOR / VERIFICATION</p>
       <h2 class="modal-title" id="chatgpt-title">ChatGPT「Try again / Regenerate」挙動の検証・OpenAIサポートへの報告</h2>
 
@@ -125,6 +126,11 @@
       <p class="modal-description">　検証を続ける中で、GPT-5.6 Solに「ランダムな12桁の番号」を求めると、「583104927641」または「583104927661」のどちらかが最初に生成されやすいことも分かった。このため、同じ番号が複数のチャットで生成された事実だけでは、過去の会話やMemoryが参照された証拠とは断定できず、GPT-5.6 Solが特定の番号を出力しやすいという生成上の偏りが、検証結果に影響した可能性もOpenAI Supportへ報告した。</p>
       <p class="modal-description">　OpenAI Supportには、条件別のテスト結果に加えて、完全ログアウト状態での会話URLと、ログイン済み・Memory無効の状態でGPT-5.6 SolからGPT-6 Astraへ変更した会話URLを提出した。また、再現時に使用したWindowsデスクトップアプリのバージョンが「1.2026.190」であることと、操作には「Branch in new chat」ではなく、回答下の「Try again／Regenerate」を使用したことも回答した。</p>
       <p class="modal-description">　現在、OpenAI Supportは、提出された画面録画、条件別の検証結果、会話URL、アプリのバージョンおよび操作方法を記録し、挙動の原因を調査するための情報を整理している段階である。現時点では、非表示の会話ブランチが実際に後続コンテキストへ含まれていたのか、GPT-5.6 Solの決定的な生成傾向によって同じ番号が再現されたのかは確定していない。今後、必要であれば、Pythonのsecretsなど外部の暗号学的乱数生成機能を使用し、モデル自身が生成しやすい番号の偏りを排除した追加検証を行うことも検討している。</p>
+      <p class="modal-description">　その後、OpenAI Supportから、WindowsアプリとWeb版、Memoryの有効・無効、Temporary Chat、モデル比較、アプリのバージョン、会話例、ならびに「Branch in new chat」ではなく「Try again／Regenerate」を使用したことを含め、提出したすべての検証結果を記録したとの回答があった。</p>
+      <p class="modal-description">　ただし、ChatGPTの出力は学習したパターンに基づいて生成され、必ずしも一意または真の乱数ではないため、同一・類似の番号が繰り返し生成された事実だけでは、非表示となった旧ブランチが参照された証拠にはならないと説明された。</p>
+      <p class="modal-description">　一方、再生成後に見えなくなった会話内容を後続回答が参照したように見える別の事例についても、正式に記録された。公開情報では「Try again／Regenerate」使用時の正確なコンテキスト処理が明示されていないため、OpenAIは現時点で、この現象を想定された仕様とも、確認済みの製品不具合とも断定しなかった。</p>
+      <p class="modal-description">　追加のテストや画面録画は不要とされ、再生成、会話の分岐、以前のコンテキストの除外という三つの違いを、製品上でもっと明確に示してほしいという改善要望も記録された。</p>
+      <p class="modal-description">　以上から、検証は本日9月14日において終了した。</p>
 
       <div class="modal-bottom no-visual">
         <div class="modal-skill" aria-label="使用スキル">
