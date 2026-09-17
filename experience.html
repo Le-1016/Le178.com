@@ -43,6 +43,7 @@
     .modal-description + .modal-description { margin-top: 1.4em; }
     .modal-bottom { margin-top: 36px; display: grid; grid-template-columns: minmax(0,1fr) minmax(260px,.8fr); gap: 34px; align-items: end; }
     .modal-skill { display: flex; align-items: center; gap: 14px; }
+    .modal-skill-logos { display: grid; gap: 8px; align-items: center; justify-items: center; }
     .modal-skill-logo { width: 56px; height: 56px; object-fit: contain; filter: brightness(0) invert(1); }
     .modal-skill-meta { display: grid; gap: 4px; }
     .modal-skill-label { color: rgba(241,241,241,.48); font-family: "Orbitron", sans-serif; font-size: 10px; font-weight: 700; letter-spacing: .16em; }
@@ -150,8 +151,15 @@
       <p class="modal-description">Unreal Engineを用いて、寝屋川キャンパスをデジタル空間上に記録・再現する制作に取り組んでいます。</p>
       <div class="modal-bottom">
         <div class="modal-skill" aria-label="使用スキル">
-          <img class="modal-skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/unrealengine/unrealengine-original.svg" alt="Unreal Engine logo">
-          <div class="modal-skill-meta"><span class="modal-skill-label">SKILL</span><span class="modal-skill-name">Unreal Engine</span></div>
+          <div class="modal-skill-logos">
+            <img class="modal-skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/blender/blender-original.svg" alt="Blender logo">
+            <img class="modal-skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/unrealengine/unrealengine-original.svg" alt="Unreal Engine logo">
+          </div>
+          <div class="modal-skill-meta">
+            <span class="modal-skill-label">SKILL</span>
+            <span class="modal-skill-name">Unreal Engine</span>
+            <span class="modal-skill-name">Blender</span>
+          </div>
         </div>
         <div class="modal-visual" aria-label="画像なし"><span>NO IMAGE</span></div>
       </div>
