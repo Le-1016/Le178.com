@@ -1042,3 +1042,27 @@ body::after {
     padding-right: 14px;
   }
 }
+
+/* ========================================
+   EXPERIENCE: UNREAL SKILLS
+======================================== */
+
+#unreal-modal .modal-skill {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+#unreal-modal .modal-skill-logos .modal-skill-logo:first-child {
+  filter: none;
+}
+
+#unreal-modal .modal-skill-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+#unreal-modal .modal-skill-meta > span:nth-child(1) { order: 1; }
+#unreal-modal .modal-skill-meta > span:nth-child(2) { order: 3; }
+#unreal-modal .modal-skill-meta > span:nth-child(3) { order: 2; }
