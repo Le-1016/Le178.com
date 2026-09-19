@@ -2,11 +2,26 @@ FROM julia:1.11-bookworm AS julia
 
 FROM mcr.microsoft.com/devcontainers/python:1-3.12-bookworm
 
+RUN rm -f /etc/apt/sources.list.d/yarn.list
+
 RUN apt-get update \
     && apt-get install -y --no-install-recommends curl ca-certificates postgresql-client \
     && rm -rf /var/lib/apt/lists/*
 
+ARG GO_VERSION=1.25.14
+
+ARG GO_SHA256=a21ae5633a269bcd7e90cf767e48225633795e99d831742cbf3397064fee7712
+
+RUN curl -fsSL "https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz" -o /tmp/go.tar.gz \
+    && echo "${GO_SHA256}  /tmp/go.tar.gz" | sha256sum -c - \
+    && rm -rf /usr/local/go \
+    && tar -C /usr/local -xzf /tmp/go.tar.gz \
+    && rm /tmp/go.tar.gz
+
+ENV PATH="/usr/local/go/bin:${PATH}"
+
 COPY --from=julia /usr/local/julia /usr/local/julia
+
 RUN ln -s /usr/local/julia/bin/julia /usr/local/bin/julia
 
 COPY python/requirements.txt /tmp/requirements.txt
