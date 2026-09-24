@@ -19,6 +19,7 @@ RUN curl -fsSL "https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz" -o /tmp/go
     && rm /tmp/go.tar.gz
 
 ENV PATH="/usr/local/go/bin:${PATH}"
+RUN ln -sf /usr/local/go/bin/go /usr/local/bin/go
 
 COPY --from=julia /usr/local/julia /usr/local/julia
 
