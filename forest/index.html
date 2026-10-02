@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#10261a">
+  <title>FOREST | 森林自律保全システム</title>
+  <link rel="stylesheet" href="./css/app.css">
+</head>
+
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">Forest Observation System</p>
+      <h1>FOREST</h1>
+    </div>
+    <div class="system-status">
+      <span class="status-dot"></span>
+      SYSTEM ONLINE
+    </div>
+  </header>
+
+  <main class="container">
+
+    <section class="hero">
+      <div>
+        <p class="eyebrow">AUTONOMOUS FOREST CONSERVATION</p>
+        <h2>森林を、見守り続ける。</h2>
+        <p class="hero-text">
+          AIとドローンによる森林自律保全システム
+        </p>
+      </div>
+    </section>
+
+    <section class="grid">
+
+      <article class="card">
+        <p class="card-label">FOREST STATUS</p>
+        <h3>森林状態</h3>
+
+        <div class="metrics">
+          <div>
+            <strong>27</strong>
+            <span>正常</span>
+          </div>
+
+          <div>
+            <strong>3</strong>
+            <span>要確認</span>
+          </div>
+
+          <div>
+            <strong>1</strong>
+            <span>異常</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <p class="card-label">DRONE</p>
+        <h3>FOREST-01</h3>
+
+        <div class="drone-state">
+          <span class="status-dot"></span>
+          ONLINE
+        </div>
+
+        <dl>
+          <div>
+            <dt>Battery</dt>
+            <dd>82%</dd>
+          </div>
+          <div>
+            <dt>GPS</dt>
+            <dd>OK</dd>
+          </div>
+          <div>
+            <dt>AI</dt>
+            <dd>READY</dd>
+          </div>
+          <div>
+            <dt>Mission</dt>
+            <dd>STANDBY</dd>
+          </div>
+        </dl>
+      </article>
+
+      <article class="card alert-card">
+        <p class="card-label">LATEST OBSERVATION</p>
+        <h3>最新の観測</h3>
+
+        <p class="alert-title">生育状態に要確認項目</p>
+
+        <dl>
+          <div>
+            <dt>Area</dt>
+            <dd>A-17</dd>
+          </div>
+          <div>
+            <dt>AI Confidence</dt>
+            <dd>91%</dd>
+          </div>
+          <div>
+            <dt>Status</dt>
+            <dd>REVIEW</dd>
+          </div>
+        </dl>
+
+        <button type="button" id="observationButton">
+          観測結果を確認
+        </button>
+      </article>
+
+      <article class="card">
+        <p class="card-label">WEATHER</p>
+        <h3>気象情報</h3>
+
+        <dl>
+          <div>
+            <dt>Weather</dt>
+            <dd>---</dd>
+          </div>
+          <div>
+            <dt>Temperature</dt>
+            <dd>-- °C</dd>
+          </div>
+          <div>
+            <dt>Wind</dt>
+            <dd>-- m/s</dd>
+          </div>
+        </dl>
+
+        <p class="muted">気象API接続予定</p>
+      </article>
+
+    </section>
+
+    <nav class="navigation">
+      <button type="button">MAP</button>
+      <button type="button">観測結果</button>
+      <button type="button">調査</button>
+      <button type="button">調査機</button>
+    </nav>
+
+    <section class="development">
+      <span>PROTOTYPE</span>
+      FOREST App v0.1
+    </section>
+
+  </main>
+
+  <script src="./js/app.js"></script>
+</body>
+</html>
