@@ -9,17 +9,36 @@ const link=(target,text)=>'<a class="button" href="#'+e(target)+'">'+e(text)+'</
 const dl=rows=>'<dl>'+rows.map(([a,b])=>'<div><dt>'+e(a)+'</dt><dd>'+e(b)+'</dd></div>').join('')+'</dl>';
 let filter='ALL',busy=false;
 let postal='',weather=null,weatherLoading=false,weatherError='',selectedArea='';
-try {postal=localStorage.getItem('forest.postal.v1')||'';} catch {}
+let savedPostal='',settingWarning='',weatherRequest=0;
+try {const saved=localStorage.getItem('forest.postal.v1')||'';if(/^\d{7}$/.test(saved)){postal=saved;savedPostal=saved;}} catch {}
+function regionControls(){
+ if(savedPostal)return '<div class="saved-region"><div><span class="region-label">保存した地域</span><strong>〒'+e(savedPostal.slice(0,3)+'-'+savedPostal.slice(3))+'</strong><p class="muted">次回もこの地域を自動表示します。</p></div><div class="region-actions"><button type="button" id="weather-refresh" '+(weatherLoading?'disabled':'')+'>気象を更新</button><button type="button" id="region-delete">地域設定を削除</button></div></div>';
+ return '<form id="weather-form"><label for="postal">郵便番号</label><div class="postal-row"><input id="postal" name="postal" inputmode="numeric" autocomplete="postal-code" maxlength="9" placeholder="例：100-0001" value="'+e(postal)+'" required><button type="submit" '+(weatherLoading?'disabled':'')+'>'+(weatherLoading?'取得中…':'地域を保存')+'</button></div><p class="muted">一度保存すると、削除するまでこのブラウザーで覚えます。</p></form>';
+}
 function weatherPanel(){
  const w=weather,c=w?.current;
- return '<section class="weather-panel '+(w?w.appearance.theme:'unconfigured')+'" aria-labelledby="weather-title"><div class="weather-art" aria-hidden="true">'+(w?w.appearance.icon:'◌')+'</div><div class="weather-content"><p class="eyebrow">LOCAL WEATHER</p><h2 id="weather-title">地域の気象情報</h2><form id="weather-form"><label for="postal">郵便番号</label><div class="postal-row"><input id="postal" name="postal" inputmode="numeric" autocomplete="postal-code" maxlength="9" placeholder="例：100-0001" value="'+e(postal)+'" required><button type="submit" '+(weatherLoading?'disabled':'')+'>'+(weatherLoading?'取得中…':'地域を表示')+'</button></div></form><p class="weather-status" role="status">'+e(weatherError||(weatherLoading?'地域の気象情報を取得しています。':w?'〒'+w.postal.slice(0,3)+'-'+w.postal.slice(3)+' · '+w.region:'郵便番号を設定して、地域の天気を表示します。'))+'</p>'+(w?'<div class="weather-reading"><strong>'+e(c.temperature_2m)+'<small>°C</small></strong><span>'+e(w.appearance.label)+'</span></div><div class="weather-metrics">'+[['風速',c.wind_speed_10m+' m/s'],['突風',c.wind_gusts_10m+' m/s'],['降水量',c.precipitation+' mm'],['湿度',c.relative_humidity_2m+'%']].map(([l,v])=>'<div><span>'+l+'</span><strong>'+e(v)+'</strong></div>').join('')+'</div><p class="weather-source">'+e(c.time.replace('T',' '))+' JST · 市区町村付近のモデル推定値<br>気象：<a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> · 住所：<a href="https://zipcloud.ibsnet.co.jp/" target="_blank" rel="noopener">zipcloud</a> · 位置：<a href="https://maps.gsi.go.jp/" target="_blank" rel="noopener">国土地理院</a></p>':'')+'</div></section>';
+ return '<section class="weather-panel '+(w?w.appearance.theme:'unconfigured')+'" aria-labelledby="weather-title"><div class="weather-art" aria-hidden="true">'+(w?w.appearance.icon:'◌')+'</div><div class="weather-content"><p class="eyebrow">LOCAL WEATHER</p><h2 id="weather-title">地域の気象情報</h2>'+regionControls()+''+(settingWarning?'<p class="warning" role="status">'+e(settingWarning)+'</p>':'')+'<p class="weather-status" role="status">'+e(weatherError||(weatherLoading?'地域の気象情報を取得しています。':w?'〒'+w.postal.slice(0,3)+'-'+w.postal.slice(3)+' · '+w.region:'郵便番号を設定して、地域の天気を表示します。'))+'</p>'+(w?'<div class="weather-reading"><strong>'+e(c.temperature_2m)+'<small>°C</small></strong><span>'+e(w.appearance.label)+'</span></div><div class="weather-metrics">'+[['風速',c.wind_speed_10m+' m/s'],['突風',c.wind_gusts_10m+' m/s'],['降水量',c.precipitation+' mm'],['湿度',c.relative_humidity_2m+'%']].map(([l,v])=>'<div><span>'+l+'</span><strong>'+e(v)+'</strong></div>').join('')+'</div><p class="weather-source">'+e(c.time.replace('T',' '))+' JST · 市区町村付近のモデル推定値<br>気象：<a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> · 住所：<a href="https://zipcloud.ibsnet.co.jp/" target="_blank" rel="noopener">zipcloud</a> · 位置：<a href="https://maps.gsi.go.jp/" target="_blank" rel="noopener">国土地理院</a></p>':'')+'</div></section>';
 }
 async function updateWeather(input){
  if(weatherLoading)return;
+ const request=++weatherRequest;
  postal=input;weatherLoading=true;weatherError='';weather=null;render();
- try{weather=await lookupWeather(input);postal=weather.postal;try{localStorage.setItem('forest.postal.v1',postal);}catch{}}
- catch(error){weatherError=error.name==='AbortError'?'接続がタイムアウトしました。再度お試しください。':error instanceof TypeError?'気象サービスに接続できません。通信環境を確認して再度お試しください。':error.message;}
- finally{weatherLoading=false;render();document.querySelector('#postal')?.focus();}
+ try{
+ const result=await lookupWeather(input);
+ if(request!==weatherRequest)return;
+ weather=result;postal=weather.postal;
+ if(!savedPostal){
+ try{localStorage.setItem('forest.postal.v1',postal);savedPostal=postal;settingWarning='';}
+ catch{settingWarning='ブラウザーに保存できません。保存を許可すると、次回から自動表示できます。';}
+ }
+ }
+ catch(error){if(request!==weatherRequest)return;weatherError=error.name==='AbortError'?'接続がタイムアウトしました。再度お試しください。':error instanceof TypeError?'気象サービスに接続できません。通信環境を確認して再度お試しください。':error.message;}
+ finally{if(request===weatherRequest){weatherLoading=false;render();(document.querySelector('#weather-refresh')||document.querySelector('#postal'))?.focus();}}
+}
+function deleteRegion(){
+ try{localStorage.removeItem('forest.postal.v1');}
+ catch{settingWarning='地域設定を削除できませんでした。ブラウザーの保存設定を確認してください。';render();return;}
+ ++weatherRequest;postal='';savedPostal='';weather=null;weatherLoading=false;weatherError='';settingWarning='';render();document.querySelector('#postal')?.focus();notify('保存した地域を削除しました。');
 }
 const content=document.querySelector('main');
 const notice=document.querySelector('#notice');
@@ -59,7 +78,10 @@ content.addEventListener('submit',async event=>{
  catch(error){notify(error.message);}finally{busy=false;render();document.querySelector('#dispatch-area')?.focus();}
 });
 content.addEventListener('change',event=>{if(event.target.id==='filter'){filter=event.target.value;render();}});
-content.addEventListener('click',async event=>{const button=event.target.closest('[data-reobserve]');if(!button||busy)return;busy=true;render();try{const result=await store.requestReobserve(button.dataset.reobserve);notify(result.duplicate?'既存の依頼 '+result.mission.id+' を確認してください。':result.mission.id+' を作成し、LOGに記録しました。');}catch(error){notify(error.message);}finally{busy=false;render();document.querySelector('[data-reobserve]')?.focus();}});
+content.addEventListener('click',async event=>{
+ if(event.target.closest('#region-delete')){deleteRegion();return;}
+ if(event.target.closest('#weather-refresh')){updateWeather(savedPostal);return;}
+ const button=event.target.closest('[data-reobserve]');if(!button||busy)return;busy=true;render();try{const result=await store.requestReobserve(button.dataset.reobserve);notify(result.duplicate?'既存の依頼 '+result.mission.id+' を確認してください。':result.mission.id+' を作成し、LOGに記録しました。');}catch(error){notify(error.message);}finally{busy=false;render();document.querySelector('[data-reobserve]')?.focus();}});
 window.addEventListener('hashchange',()=>{render();content.focus();window.scrollTo(0,0);});
 store.subscribe(render);
 try{await store.init();render();if(postal)updateWeather(postal);}catch{content.textContent='読み込みに失敗しました。ページを再読み込みしてください。';}
