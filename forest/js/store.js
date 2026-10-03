@@ -17,6 +17,20 @@ export function createMockRepository(storage) {
  const nextId = (prefix, rows) => prefix + String(Math.max(0,...rows.map(r=>Number(r.id.split('-')[1])||0))+1).padStart(4,'0');
  return {
  async load() { return {data:copy(state),persistent:persistence}; },
+ async requestDispatch({type,drone_id,area_id}) {
+ if(!['PATROL','INSPECT'].includes(type))throw new Error('依頼の種類が不正です。');
+ const drone=state.drones.find(d=>d.id===drone_id);
+ if(!drone||!state.areas.some(a=>a.id===area_id))throw new Error('機体または区域が見つかりません。');
+ if(drone.status!=='STANDBY')throw new Error('待機中の機体を選んでください。');
+ const existing=state.missions.find(m=>m.drone_id===drone_id&&['REQUESTED','ACCEPTED','RUNNING'].includes(m.status));
+ if(existing)return {mission:copy(existing),duplicate:true};
+ const created_at=new Date().toISOString();
+ const mission={id:nextId('MIS-',state.missions),drone_id,type,status:'REQUESTED',target:{area_id,observation_id:null},reason:'MANUAL_REQUEST',constraints:{max_altitude_m:20,geofence_required:true},created_at};
+ const log={id:nextId('LOG-',state.logs),time:created_at,event:'MISSION_REQUESTED',mission_id:mission.id,drone_id,message:drone_id+'の'+(type==='PATROL'?'巡回':'調査')+'Mission '+mission.id+'を要請しました。'};
+ state={...state,missions:[...state.missions,mission],logs:[log,...state.logs]};
+ try{if(!storage)persistence=false;else storage.setItem(key,JSON.stringify(state));}catch{persistence=false;}
+ return {mission:copy(mission),duplicate:false};
+ },
  async requestReobserve(observationId) {
  const observation=state.observations.find(o=>o.id===observationId);
  if(!observation) throw new Error('観測が見つかりません。');
@@ -36,6 +50,7 @@ export function createStore(repository) {
  const listeners=new Set();
  async function refresh() { snapshot=await repository.load(); listeners.forEach(fn=>fn()); }
  return {init:refresh,getSnapshot:()=>copy(snapshot),subscribe(fn){listeners.add(fn);return()=>listeners.delete(fn);},
+ async requestDispatch(request) { if(pending)throw new Error('処理中です。');pending=true;try{const result=await repository.requestDispatch(request);await refresh();return result;}finally{pending=false;} },
  async requestReobserve(id) { if(pending) throw new Error('処理中です。'); pending=true; try { const result=await repository.requestReobserve(id); await refresh(); return result; } finally {pending=false;} }
  };
 }
