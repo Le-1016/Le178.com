@@ -1,4 +1,4 @@
-import { mockData } from './mock-data.js';
+import { mockData, shortObservationLabel } from './mock-data.js';
 import { latestPerSite } from './observation-history.js';
 
 // Repository methods are async so a Go API can replace this local demo adapter.
@@ -17,7 +17,7 @@ function valid(state) {
 function migrate(saved) {
   const state = copy(saved);
   const defaults = new Map(mockData.observations.map(o => [o.id, o]));
-  state.observations = state.observations.map(o => ({...defaults.get(o.id), ...o}));
+  state.observations = state.observations.map(o => ({...defaults.get(o.id), ...o, label:shortObservationLabel(o.label)}));
   for (const fixture of mockData.observations) {
     if (!state.observations.some(o => o.id === fixture.id)) state.observations.push(copy(fixture));
   }
@@ -98,7 +98,7 @@ export function createMockRepository(storage) {
         log('DEMO_REOBSERVE_STARTED',mission.id+'：高度'+mission.capture_plan.from_altitude_m+'m → '+mission.capture_plan.altitude_m+'m、別角度からの再観測デモを開始。',{mission_id:id,source:'DEMO'});
       } else if (mission.status==='RUNNING') {
         const captured_at=new Date(Math.max(Date.now(),Date.parse(observation.captured_at)+1000)).toISOString();
-        const result={...copy(observation),id:nextId('OBS-',state.observations),mission_id:id,parent_observation_id:observation.id,captured_at,altitude_m:mission.capture_plan.altitude_m,camera_angle_deg:mission.capture_plan.camera_angle_deg,heading_deg:mission.capture_plan.heading_deg,status:'ANOMALY',label:'樹冠の変色を再確認',confidence:0.92,image_url:'./assets/canopy-reobserve.svg',note:'デモ再判定：近距離・別角度で変色候補を再確認しました。実際の推論結果ではありません。'};
+        const result={...copy(observation),id:nextId('OBS-',state.observations),mission_id:id,parent_observation_id:observation.id,captured_at,altitude_m:mission.capture_plan.altitude_m,camera_angle_deg:mission.capture_plan.camera_angle_deg,heading_deg:mission.capture_plan.heading_deg,status:'ANOMALY',label:'変色',confidence:0.92,image_url:'./assets/canopy-reobserve.svg',note:'デモ再判定：近距離・別角度で変色候補を再確認しました。実際の推論結果ではありません。'};
         state.observations.push(result);mission.result_observation_id=result.id;mission.status='COMPLETED';mission.completed_at=captured_at;
         log('DEMO_REASSESSMENT_COMPLETED',mission.id+'：再判定92%、要確認 → 異常。'+result.id+'を記録しました。',{mission_id:id,observation_id:result.id,source:'DEMO'});
         evaluateLatest();
