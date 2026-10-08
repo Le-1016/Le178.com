@@ -92,41 +92,22 @@
       line-height: 1.55;
       letter-spacing: 0.04em;
     }
-    .profile-value .en {
-      margin-left: 18px;
-      color: rgba(241,241,241,0.72);
-      font-family: "Orbitron", sans-serif;
-      font-size: 0.52em;
-      letter-spacing: 0.12em;
-      white-space: nowrap;
-    }
     .school-pair {
       display: grid;
-      grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+      grid-template-columns: minmax(0, 1fr);
       gap: clamp(18px, 3vw, 42px);
       align-items: start;
     }
-    .school-ja, .school-en { min-width: 0; }
+    .school-ja { min-width: 0; }
     .school-ja {
       font-size: clamp(15px, 1.55vw, 21px);
       line-height: 1.85;
       letter-spacing: 0.015em;
     }
-    .school-en {
-      padding-top: 1px;
-      color: rgba(241,241,241,0.72);
-      font-family: "Orbitron", sans-serif;
-      font-size: clamp(10px, 0.95vw, 13px);
-      font-weight: 600;
-      line-height: 1.75;
-      letter-spacing: 0.025em;
-    }
     @media (max-width: 700px) {
       .profile-row { grid-template-columns: 1fr; gap: 8px; padding: 20px 0; }
-      .profile-value .en { display: block; margin: 6px 0 0; }
       .school-pair { grid-template-columns: 1fr; gap: 14px; }
       .school-ja { font-size: clamp(14px, 4.2vw, 18px); }
-      .school-en { font-size: clamp(10px, 3.2vw, 12px); }
     }
     @media (prefers-reduced-motion: reduce) {
       .profile-box::before { width: 100%; transition: none; }
@@ -175,23 +156,22 @@
       <div class="profile-box">
         <div class="profile-grid">
           <div class="profile-row">
-            <div class="profile-label">NAME</div>
-            <div class="profile-value">稲　葉　玲　音 <span class="en">LEON INABA</span></div>
+            <div class="profile-label">名前</div>
+            <div class="profile-value">稲　葉　玲　音</div>
           </div>
           <div class="profile-row">
-            <div class="profile-label">AGE</div>
-            <div class="profile-value">17 <span class="en">MALE</span></div>
+            <div class="profile-label">年齢</div>
+            <div class="profile-value">17</div>
           </div>
           <div class="profile-row">
-            <div class="profile-label">SCHOOL</div>
+            <div class="profile-label">学校</div>
             <div class="profile-value school-pair">
               <div class="school-ja">大阪公立大学工業高等専門学校<br>総合工学システム学科知能情報コース</div>
-              <div class="school-en">Osaka Metropolitan University College of Technology<br>Department of General Systems Engineering<br>Intelligent Informatics Course</div>
             </div>
           </div>
           <div class="profile-row">
-            <div class="profile-label">CLUB</div>
-            <div class="profile-value">ラグビー部 <span class="en">RUGBY</span></div>
+            <div class="profile-label">部活動</div>
+            <div class="profile-value">ラグビー部</div>
           </div>
         </div>
       </div>

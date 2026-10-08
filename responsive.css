@@ -92,7 +92,6 @@
   .profile-box { padding: 24px 20px; min-height: 0; }
   .profile-row { grid-template-columns: minmax(0, 1fr); }
   .profile-value { font-size: 22px; overflow-wrap: anywhere; }
-  .profile-value .en { white-space: normal; }
   .school-pair { grid-template-columns: minmax(0, 1fr); }
   .blog-post { padding: 24px 18px; }
   .blog-post-title { font-size: 24px; margin-bottom: 24px; }
