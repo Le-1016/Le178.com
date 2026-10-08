@@ -1,0 +1,116 @@
+/* Loaded after the theme and page styles. Desktop rules remain unchanged. */
+@media (max-width: 900px) {
+  html { scroll-padding-top: 160px; }
+  header {
+    height: auto;
+    min-height: 0;
+    padding: 12px 24px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  header .logo { padding: 4px 0; font-size: 17px; }
+  header nav {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 0 24px;
+    overflow: visible;
+    padding: 0;
+  }
+  header nav a {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    flex: 0 0 auto;
+    font-size: 12px;
+    letter-spacing: .06em;
+    white-space: nowrap;
+  }
+  header nav a::after { bottom: 6px; }
+  .skill-page, .blog-page, .cert-page, .experience-page {
+    padding: 164px 24px 80px;
+  }
+  .skill-title, .blog-title, .cert-title, .experience-title {
+    font-size: clamp(24px, 4.8vw, 48px);
+    letter-spacing: .04em;
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+  }
+  .skill-row, .skill-row.reverse {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+    gap: 24px;
+    padding: 40px 0;
+  }
+  /* Cancel the generic section padding on nested rows. */
+  section.skill-row { padding: 40px 0; }
+  .skill-row .skill-copy, .skill-row.reverse .skill-copy { order: 1; }
+  .skill-row .skill-visual, .skill-row.reverse .skill-visual { order: 2; }
+  .skill-copy { max-width: none; min-width: 0; }
+  .skill-visual { min-height: 140px; justify-content: flex-start; }
+  .skill-logo, .white-logo, .codex-logo { width: 120px; height: 120px; }
+  .sql-logo { width: 150px; height: 120px; }
+  .skill-copy h2, .skill-kicker { overflow-wrap: anywhere; }
+  section.cert-item, section.experience-card { padding: 0; }
+  .cert-name, .experience-card-title { min-width: 0; overflow-wrap: anywhere; }
+  .modal-bottom { grid-template-columns: minmax(0, 1fr); }
+  .modal-skill-meta { min-width: 0; overflow-wrap: anywhere; }
+  .modal-title, .modal-kicker, .modal-description { overflow-wrap: anywhere; }
+  .cert-modal, .experience-modal { padding: 12px; }
+  .cert-modal-panel, .experience-modal-panel {
+    max-height: calc(100vh - 24px);
+    max-height: calc(100dvh - 24px);
+    padding: 64px 24px 28px;
+    overscroll-behavior: contain;
+  }
+  .modal-close { top: 12px; right: 12px; width: 44px; height: 44px; }
+  .modal-title { padding-right: 0; }
+}
+
+@media (max-width: 600px) {
+  header { padding: 10px 16px; }
+  header nav {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 0 12px;
+  }
+  header nav a { font-size: 11px; }
+  html { scroll-padding-top: 180px; }
+  .hero { padding: 190px 18px 64px; }
+  .hero h1 { font-size: clamp(30px, 9vw, 46px); }
+  .hero p { max-width: 100%; font-size: 14px; line-height: 1.9; }
+  .hero-button { min-height: 44px; }
+  .skill-page, .blog-page, .cert-page, .experience-page {
+    padding: 190px 18px 64px;
+  }
+  .skill-lead, .blog-lead { margin-bottom: 40px; }
+  .skill-lead, .blog-lead, .cert-lead, .experience-lead {
+    font-size: 14px;
+    line-height: 1.9;
+  }
+  .profile-box { padding: 24px 20px; min-height: 0; }
+  .profile-row { grid-template-columns: minmax(0, 1fr); }
+  .profile-value { font-size: 22px; overflow-wrap: anywhere; }
+  .profile-value .en { white-space: normal; }
+  .school-pair { grid-template-columns: minmax(0, 1fr); }
+  .blog-post { padding: 24px 18px; }
+  .blog-post-title { font-size: 24px; margin-bottom: 24px; }
+  .blog-meta { font-size: 11px; letter-spacing: .06em; }
+  .blog-body p { font-size: 14px; line-height: 2; overflow-wrap: anywhere; }
+  .skill-copy h2 { font-size: 26px; }
+  .skill-copy p { font-size: 14px; line-height: 1.95; }
+  .cert-toggle, .experience-toggle { min-height: 56px; padding: 14px 2px; }
+  .cert-modal-panel, .experience-modal-panel { padding: 64px 18px 24px; }
+  .modal-title { font-size: 22px; }
+  .modal-description { font-size: 14px; line-height: 1.95; }
+  .modal-bottom { gap: 24px; }
+  .modal-status-row { gap: 10px; }
+  #unreal-modal .modal-skill { gap: 14px !important; }
+  .modal-visual span { font-size: 24px; letter-spacing: .06em; }
+}
+
+/* Keep dialogs usable on short landscape screens. */
+@media (max-height: 500px) and (max-width: 900px) {
+  header { position: absolute; }
+}
