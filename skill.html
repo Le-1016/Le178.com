@@ -13,6 +13,27 @@
     .skill-page { min-height: 100vh; padding: 150px 7vw 120px; position: relative; z-index: 2; }
     .skill-title { margin: 0 0 16px; color: var(--red); font-family: "Orbitron", sans-serif; font-size: clamp(48px, 7vw, 96px); font-weight: 800; letter-spacing: 0.08em; }
     .skill-lead { max-width: 760px; margin: 0 0 90px; color: var(--white); line-height: 2; opacity: 0.8; }
+    .skill-artifact-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: -54px 0 64px;
+      padding: 13px 22px;
+      border: 1px solid rgba(229,34,34,.55);
+      color: var(--white);
+      background: rgba(229,34,34,.08);
+      font-family: "Noto Serif JP", serif;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: .06em;
+      transition: .25s ease;
+    }
+    .skill-artifact-button:hover {
+      color: var(--red-bright);
+      border-color: var(--red);
+      transform: translateY(-2px);
+    }
     .skill-list { max-width: 1180px; margin: 0 auto; }
     .skill-row { min-height: 420px; display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: clamp(42px, 7vw, 110px); border-top: 1px solid rgba(229,34,34,0.12); position: relative; overflow: hidden; }
     .skill-row:last-child { border-bottom: 1px solid rgba(229,34,34,0.12); }
@@ -44,6 +65,7 @@
     @media (max-width: 760px) {
       .skill-page { padding: 130px 7vw 90px; }
       .skill-lead { margin-bottom: 54px; }
+      .skill-artifact-button { margin: -28px 0 46px; }
       .skill-row, .skill-row.reverse { grid-template-columns: 1fr; gap: 10px; min-height: auto; padding: 54px 0 64px; }
       .skill-row .skill-visual, .skill-row .skill-copy, .skill-row.reverse .skill-visual, .skill-row.reverse .skill-copy { order: initial; }
       .skill-visual { min-height: 180px; justify-content: flex-start; }
@@ -73,17 +95,17 @@
   <main class="skill-page">
     <h1 class="skill-title">SKILL</h1>
     <p class="skill-lead">現在扱っているAI・開発・データ関連の技術をまとめています。</p>
+    <a class="skill-artifact-button" href="https://le-1016.github.io/forest_dcon2027/forest/" target="_blank" rel="noopener noreferrer">成果物を閲覧 <span>→</span></a>
     <div class="skill-list">
       <section class="skill-row"><div class="skill-copy"><p class="skill-kicker">AI / DEEP LEARNING</p><h2>PyTorch</h2><p>ニューラルネットワークの構築や画像分類など、深層学習の実装に使用しています。AI・機械学習・データ分析を中心に扱っています。</p></div><div class="skill-visual"><img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytorch/pytorch-original.svg" alt="PyTorch logo"></div></section>
       <section class="skill-row reverse"><div class="skill-visual"><img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/julia/julia-original.svg" alt="Julia logo"></div><div class="skill-copy"><p class="skill-kicker">NUMERICAL COMPUTING / RESEARCH</p><h2>Julia</h2><p>数値計算や研究用途で使用しています。</p></div></section>
-      <section class="skill-row"><div class="skill-copy"><p class="skill-kicker">BACKEND / API</p><h2>Go</h2><p>FORESTのバックエンドAPI開発に使用しています。PostgreSQLと接続し、観測データやミッションの取得・登録、観測履歴の参照、AIアシスタントが利用するツールなどをHTTP APIとして実装しています。</p></div><div class="skill-visual"><img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/go/go-original-wordmark.svg" alt="Go logo"></div></section>
-      <section class="skill-row reverse"><div class="skill-visual sql-visual"><img class="sql-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg" alt="PostgreSQL logo"></div><div class="skill-copy"><p class="skill-kicker">DATABASE / DATA MODELING</p><h2>SQL / PostgreSQL</h2><p>SQLファイルを作成し、テーブル定義・データ登録・検索・集計などのデータベース操作に使用しています。現在は主にPostgreSQLを利用しており、FORESTではミッション・観測データ・ドローン状態のスキーマ設計やインデックス作成、Go APIからのデータ操作に取り組んでいます。</p></div></section>
+      <section class="skill-row"><div class="skill-copy"><p class="skill-kicker">BACKEND / API</p><h2>Go</h2><p>FORESTのバックエンドAPI開発に使用しています。データベースと接続し、観測データやミッションの取得・登録、観測履歴の参照、AIアシスタントが利用するツールなどをHTTP APIとして実装しています。</p></div><div class="skill-visual"><img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/go/go-original-wordmark.svg" alt="Go logo"></div></section>
+      <section class="skill-row reverse"><div class="skill-visual"><div class="skill-wordmark" aria-label="SQL">SQL</div></div><div class="skill-copy"><p class="skill-kicker">DATABASE / DATA MODELING</p><h2>SQL</h2><p>SQLファイルを作成し、テーブル定義・データ登録・検索・集計などのデータベース操作に使用しています。FORESTではミッションや観測データを扱うためのスキーマ設計やインデックス作成、Go APIからのデータ操作に取り組んでいます。</p></div></section>
       <section class="skill-row"><div class="skill-copy"><p class="skill-kicker">DATA VISUALIZATION</p><h2>Tableau</h2><p>データをグラフやダッシュボードとして可視化し、分析結果や傾向を分かりやすく整理・共有するために使用しています。</p></div><div class="skill-visual"><img class="skill-logo" src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/tableau/default.svg" alt="Tableau logo"></div></section>
       <section class="skill-row reverse"><div class="skill-visual"><img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/ubuntu/ubuntu-original.svg" alt="Ubuntu logo"></div><div class="skill-copy"><p class="skill-kicker">SERVER / INFRASTRUCTURE</p><h2>Ubuntu CLI</h2><p>さくらインターネットのVPSをレンタルし、Ubuntu Serverを用いたLinuxサーバー環境を構築しています。SSHを利用してWindows PCからサーバーへリモート接続し、Ubuntu CLI上で整備を行っております。</p></div></section>
-      <section class="skill-row"><div class="skill-copy"><p class="skill-kicker">CONTAINER / DEVELOPMENT ENVIRONMENT</p><h2>Docker</h2><p>Docker Composeを使い、Nginx、Go API、PostgreSQL、開発用コンテナをまとめて起動できる環境を構成しています。Dev Containerと組み合わせ、Python・PyTorch・Go・PostgreSQLを扱う開発環境を再現可能な形で管理しています。</p></div><div class="skill-visual"><img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" alt="Docker logo"></div></section>
-      <section class="skill-row reverse"><div class="skill-copy"><p class="skill-kicker">3D MODELING / DATA PREPARATION</p><h2>Blender</h2><p>Scaniverseで計測した寝屋川キャンパスの3DデータをGLB形式でBlenderに読み込み、モデルの補正と整理を行うために使用しています。</p></div><div class="skill-visual"><img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/blender/blender-original.svg" alt="Blender logo"></div></section>
-      <section class="skill-row"><div class="skill-visual"><img class="white-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/unrealengine/unrealengine-original.svg" alt="Unreal Engine logo"></div><div class="skill-copy"><p class="skill-kicker">SELF-STUDY / GAME ENGINE</p><h2>Unreal Engine</h2><p>現在、独学で学習中です。ゲームエンジンの基本操作やリアルタイム3D表現を中心に、実際に触りながら理解を深めています。</p></div></section>
-      <section class="skill-row reverse"><div class="skill-copy"><p class="skill-kicker">AI CODING AGENT</p><h2>Codex</h2><p>コードの作成だけでなく、既存コードの修正・レビュー・リファクタリングまで一連の開発作業を進めるために使用しています。GitHub上のプロジェクトを実際に更新しながら、実装と検証を素早く反復するための開発支援ツールとして活用しています。</p></div><div class="skill-visual"><img class="codex-logo" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/openai.svg" alt="OpenAI logo"></div></section>
+      <section class="skill-row"><div class="skill-copy"><p class="skill-kicker">3D MODELING / DATA PREPARATION</p><h2>Blender</h2><p>Scaniverseで計測した寝屋川キャンパスの3DデータをGLB形式でBlenderに読み込み、モデルの補正と整理を行うために使用しています。</p></div><div class="skill-visual"><img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/blender/blender-original.svg" alt="Blender logo"></div></section>
+      <section class="skill-row reverse"><div class="skill-visual"><img class="white-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/unrealengine/unrealengine-original.svg" alt="Unreal Engine logo"></div><div class="skill-copy"><p class="skill-kicker">SELF-STUDY / GAME ENGINE</p><h2>Unreal Engine</h2><p>現在、独学で学習中です。ゲームエンジンの基本操作やリアルタイム3D表現を中心に、実際に触りながら理解を深めています。</p></div></section>
+      <section class="skill-row"><div class="skill-copy"><p class="skill-kicker">AI CODING AGENT</p><h2>Codex</h2><p>コードの作成だけでなく、既存コードの修正・レビュー・リファクタリングまで一連の開発作業を進めるために使用しています。GitHub上のプロジェクトを実際に更新しながら、実装と検証を素早く反復するための開発支援ツールとして活用しています。</p></div><div class="skill-visual"><img class="codex-logo" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/openai.svg" alt="OpenAI logo"></div></section>
     </div>
   </main>
   <script>
