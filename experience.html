@@ -52,6 +52,8 @@
     .modal-visual { min-height: 190px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(229,34,34,.16); background: linear-gradient(rgba(229,34,34,.045) 1px,transparent 1px), linear-gradient(90deg,rgba(229,34,34,.045) 1px,transparent 1px), rgba(5,5,5,.72); background-size: 28px 28px; }
     .modal-visual span { color: var(--red); font-family: "Orbitron", sans-serif; font-size: clamp(24px,3vw,38px); font-weight: 800; letter-spacing: .12em; opacity: .72; }
     .modal-bottom.no-visual { grid-template-columns: 1fr; }
+    .modal-project-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 24px; color: var(--red-bright); font-family: "Orbitron", sans-serif; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-decoration: none; }
+    .modal-project-link:hover { color: var(--white); }
 
     .motion-ready .experience-card { opacity: 0; transform: translateY(12px); transition: opacity .5s ease, transform .65s cubic-bezier(.22,1,.36,1); }
     .motion-ready .experience-card.is-visible { opacity: 1; transform: none; }
@@ -96,6 +98,13 @@
     <p class="experience-lead">授業・制作・プロジェクトなどを通して取り組んでいる実践経験をまとめています。</p>
 
     <div class="experience-list">
+      <section class="experience-card" data-modal="forest-modal">
+        <button class="experience-toggle" type="button" aria-haspopup="dialog">
+          <h2 class="experience-card-title">D-CON 2027向け森林保全システム「FOREST」開発</h2>
+          <span class="experience-arrow" aria-hidden="true">→</span>
+        </button>
+      </section>
+
       <section class="experience-card" data-modal="chatgpt-modal">
         <button class="experience-toggle" type="button" aria-haspopup="dialog">
           <h2 class="experience-card-title">ChatGPT「Try again / Regenerate」挙動の検証・OpenAIサポートへの報告</h2>
@@ -111,6 +120,39 @@
       </section>
     </div>
   </main>
+
+  <div class="experience-modal" id="forest-modal" role="dialog" aria-modal="true" aria-labelledby="forest-title">
+    <div class="experience-modal-panel">
+      <button class="modal-close" type="button" aria-label="閉じる">×</button>
+      <div class="modal-status-row"><span class="modal-status">開発中</span><span class="modal-updated">2026/10/10 更新</span></div>
+      <p class="modal-kicker">D-CON 2027 / AI / BACKEND / INFRASTRUCTURE</p>
+      <h2 class="modal-title" id="forest-title">D-CON 2027向け森林保全システム「FOREST」開発</h2>
+
+      <p class="modal-description">　D-CON 2027に向けて、森林の観測データを蓄積し、継続観測や再観測の判断を支援するシステム「FOREST」を開発しています。現在は実機接続前のプロトタイプとして、森林エリア・観測地点・ドローン・観測結果・ミッションを扱う構成を設計し、フロントエンドからバックエンド、データベースまで一体で実装しています。</p>
+      <p class="modal-description">　バックエンドにはGoを使用し、PostgreSQLと接続するHTTP APIを構築しています。観測データとミッションの取得・登録に加え、同一のarea_idとsite_idに紐づく観測履歴を取得する機能を実装し、最新観測と過去観測を比較できるデータ構造を整備しています。SQLではmissions、observations、drone_statusなどのテーブル定義やインデックスを管理しています。</p>
+      <p class="modal-description">　AI機能ではOpenRouter経由のLLMとGo APIを接続し、AIが必要に応じて観測履歴取得ツールを呼び出し、PostgreSQLに保存された観測データを根拠として回答する仕組みを実装しています。confidenceを森林の健康度そのものとして扱わないことや、観測条件の違いを考慮することをシステムプロンプトに明示し、AIがデータにない事実を断定しないよう設計しています。</p>
+      <p class="modal-description">　開発環境はDocker ComposeとDev Containerで構成し、Nginx、Go API、PostgreSQL、Python・PyTorchを扱う開発用コンテナをまとめて管理しています。フロントエンドでは、観測・ミッション・ログを確認できるSPAと、低confidenceの観測に対する再観測デモを実装しています。現段階の再観測処理はシミュレーションであり、実際のドローン飛行やGPU推論は行っていません。</p>
+      <p class="modal-description">　将来的なJetson・ROS 2・PX4などとの接続を想定しつつ、現時点では実機制御とWebアプリケーションの責務を分離し、ミッション要求と実際の飛行開始を同一視しない構成で開発を進めています。</p>
+
+      <a class="modal-project-link" href="https://github.com/Le-1016/forest_dcon2027" target="_blank" rel="noopener noreferrer">GITHUB REPOSITORY →</a>
+
+      <div class="modal-bottom no-visual">
+        <div class="modal-skill" aria-label="使用スキル">
+          <div class="modal-skill-logos">
+            <img class="modal-skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/go/go-original-wordmark.svg" alt="Go logo">
+            <img class="modal-skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg" alt="PostgreSQL logo">
+            <img class="modal-skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" alt="Docker logo">
+          </div>
+          <div class="modal-skill-meta">
+            <span class="modal-skill-label">SKILL</span>
+            <span class="modal-skill-name">Go</span>
+            <span class="modal-skill-name">PostgreSQL</span>
+            <span class="modal-skill-name">Docker</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="experience-modal" id="chatgpt-modal" role="dialog" aria-modal="true" aria-labelledby="chatgpt-title">
     <div class="experience-modal-panel">
