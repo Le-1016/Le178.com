@@ -27,6 +27,29 @@
       color: var(--red-bright) !important;
     }
 
+    .artifact-link-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 34px;
+      padding: 13px 22px;
+      border: 1px solid rgba(229,34,34,.55);
+      color: var(--white);
+      background: rgba(229,34,34,.08);
+      font-family: "Noto Serif JP", serif;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: .06em;
+      transition: .25s ease;
+    }
+    .artifact-link-button:hover {
+      color: var(--red-bright);
+      border-color: var(--red);
+      transform: translateY(-2px);
+    }
+    .works-artifact-link { text-align: center; }
+
     .profile { position: relative; }
     .profile-box {
       position: relative;
@@ -182,7 +205,10 @@
       <div class="works-grid">
         <article class="work-card"><div class="work-image"></div><div class="work-content"><h3>AI</h3><p>PythonやPyTorchを中心に、機械学習・ディープラーニング・AIに関する制作や学習記録を掲載します。</p></div></article>
         <article class="work-card"><div class="work-image"></div><div class="work-content"><h3>バックエンド</h3><p>GoやSQLを用いたAPI・データ処理・データベース連携など、バックエンド開発に関する制作を掲載します。</p></div></article>
-        <article class="work-card"><div class="work-image"></div><div class="work-content"><h3>インフラ</h3><p>Dockerやデータベース環境など、開発・運用を支えるインフラに関する学習や構築内容をまとめます。</p></div></article>
+        <article class="work-card"><div class="work-image"></div><div class="work-content"><h3>インフラ</h3><p>Linuxサーバーや開発環境など、開発・運用を支えるインフラに関する学習や構築内容をまとめます。</p></div></article>
+      </div>
+      <div class="works-artifact-link">
+        <a class="artifact-link-button" href="https://le-1016.github.io/forest_dcon2027/forest/" target="_blank" rel="noopener noreferrer">成果物を閲覧 <span>→</span></a>
       </div>
     </section>
   </main>
