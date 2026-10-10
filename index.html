@@ -27,11 +27,25 @@
       color: var(--red-bright) !important;
     }
 
-    .artifact-link-button {
+    .contact { padding-top: 90px; padding-bottom: 120px; }
+    .contact-box {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: clamp(34px, 5vw, 58px);
+      border: 1px solid rgba(229,34,34,.24);
+      background: linear-gradient(135deg, rgba(13,13,13,.96), rgba(7,7,7,.96));
+    }
+    .contact-copy {
+      margin: 0 0 28px;
+      color: var(--white);
+      font-size: 15px;
+      line-height: 2;
+      opacity: .78;
+    }
+    .contact-link {
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      margin-top: 34px;
       padding: 13px 22px;
       border: 1px solid rgba(229,34,34,.55);
       color: var(--white);
@@ -43,12 +57,11 @@
       letter-spacing: .06em;
       transition: .25s ease;
     }
-    .artifact-link-button:hover {
+    .contact-link:hover {
       color: var(--red-bright);
       border-color: var(--red);
       transform: translateY(-2px);
     }
-    .works-artifact-link { text-align: center; }
 
     .profile { position: relative; }
     .profile-box {
@@ -200,15 +213,11 @@
       </div>
     </section>
 
-    <section id="works" class="works">
-      <div class="section-heading"><h2>制作物</h2></div>
-      <div class="works-grid">
-        <article class="work-card"><div class="work-image"></div><div class="work-content"><h3>AI</h3><p>PythonやPyTorchを中心に、機械学習・ディープラーニング・AIに関する制作や学習記録を掲載します。</p></div></article>
-        <article class="work-card"><div class="work-image"></div><div class="work-content"><h3>バックエンド</h3><p>GoやSQLを用いたAPI・データ処理・データベース連携など、バックエンド開発に関する制作を掲載します。</p></div></article>
-        <article class="work-card"><div class="work-image"></div><div class="work-content"><h3>インフラ</h3><p>Linuxサーバーや開発環境など、開発・運用を支えるインフラに関する学習や構築内容をまとめます。</p></div></article>
-      </div>
-      <div class="works-artifact-link">
-        <a class="artifact-link-button" href="https://le-1016.github.io/forest_dcon2027/forest/" target="_blank" rel="noopener noreferrer">成果物を閲覧 <span>→</span></a>
+    <section id="contact" class="contact">
+      <div class="section-heading"><h2>CONTACT</h2></div>
+      <div class="contact-box">
+        <p class="contact-copy">制作・開発に関するご連絡やお問い合わせは、GitHubよりお願いいたします。</p>
+        <a class="contact-link" href="https://github.com/Le-1016" target="_blank" rel="noopener noreferrer">GitHubを見る <span>→</span></a>
       </div>
     </section>
   </main>
