@@ -173,3 +173,30 @@ header::after {
     padding: 28px;
   }
 }
+
+
+/* Header welcome logo */
+.logo {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5em;
+  word-spacing: normal;
+}
+.logo-welcome {
+  color: var(--white) !important;
+  font-size: 0.72em;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}
+.logo-brand {
+  display: inline-flex;
+  align-items: baseline;
+  letter-spacing: 0.02em;
+}
+.logo-brand .logo-le,
+.logo-brand .logo-dot {
+  color: var(--red) !important;
+}
+.logo-brand .logo-portfolio {
+  color: var(--white) !important;
+}
