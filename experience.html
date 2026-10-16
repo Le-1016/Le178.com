@@ -13,11 +13,16 @@
     .experience-page { min-height: 100vh; padding: 150px 7vw 120px; position: relative; z-index: 2; }
     .experience-title { margin: 0 0 16px; color: var(--red); font-family: "Orbitron", sans-serif; font-size: clamp(42px, 6.5vw, 88px); font-weight: 800; letter-spacing: 0.07em; }
     .experience-lead { max-width: 780px; margin: 0 0 16px; color: var(--white); line-height: 2; opacity: 0.8; }
-    .experience-filters { max-width: 1080px; margin: 24px auto 12px; display: flex; flex-wrap: wrap; gap: 8px; }
-    .experience-filter { min-height: 44px; padding: 8px 14px; border: 1px solid rgba(229,34,34,.35); background: transparent; color: var(--white); font: inherit; font-size: 13px; cursor: pointer; }
-    .experience-filter[aria-pressed="true"], .experience-filter:hover { border-color: var(--red); background: rgba(229,34,34,.12); color: var(--red-bright); }
-    .experience-filter:focus-visible { outline: 2px solid var(--red-bright); outline-offset: 3px; }
-    .experience-count { max-width: 1080px; margin: 0 auto 16px; color: var(--white); font-size: 13px; opacity: .7; }
+    .experience-filter-wrap { max-width: 1080px; margin: 24px auto 12px; display: flex; justify-content: flex-end; position: relative; }
+    .experience-filter-trigger { min-width: 150px; min-height: 44px; display: inline-flex; align-items: center; justify-content: space-between; gap: 18px; padding: 9px 14px; border: 1px solid rgba(229,34,34,.35); background: rgba(8,8,8,.92); color: var(--white); font: inherit; font-size: 13px; cursor: pointer; }
+    .experience-filter-trigger:hover, .experience-filter-trigger[aria-expanded="true"] { border-color: var(--red); color: var(--red-bright); }
+    .experience-filter-trigger:focus-visible, .experience-filter:focus-visible { outline: 2px solid var(--red-bright); outline-offset: 3px; }
+    .experience-filter-menu { position: absolute; top: calc(100% + 8px); right: 0; z-index: 30; width: 220px; display: none; border: 1px solid rgba(229,34,34,.35); background: rgba(6,6,6,.98); box-shadow: 0 18px 50px rgba(0,0,0,.48); }
+    .experience-filter-menu.is-open { display: grid; }
+    .experience-filter { width: 100%; min-height: 42px; padding: 10px 14px; border: 0; border-bottom: 1px solid rgba(229,34,34,.14); background: transparent; color: var(--white); font: inherit; font-size: 13px; text-align: left; cursor: pointer; }
+    .experience-filter:last-child { border-bottom: 0; }
+    .experience-filter[aria-pressed="true"], .experience-filter:hover { background: rgba(229,34,34,.12); color: var(--red-bright); }
+    .experience-count { max-width: 1080px; margin: 0 auto 16px; color: var(--white); font-size: 13px; opacity: .7; text-align: right; }
     .experience-card[hidden] { display: none; }
     .experience-list { max-width: 1080px; margin: 0 auto; border-top: 1px solid rgba(229,34,34,.24); }
     section.experience-card { padding: 0; }
@@ -103,13 +108,17 @@
     <h1 class="experience-title">EXPERIENCE</h1>
     <p class="experience-lead">授業・制作・プロジェクトなどを通して取り組んでいる実践経験をまとめています。</p>
 
-    <div class="experience-filters" role="group" aria-label="スキルで実績を絞り込む">
-      <button class="experience-filter" type="button" data-skill="all" aria-pressed="true" aria-controls="experience-list">すべて</button>
-      <button class="experience-filter" type="button" data-skill="go" aria-pressed="false" aria-controls="experience-list">Go</button>
-      <button class="experience-filter" type="button" data-skill="sql" aria-pressed="false" aria-controls="experience-list">SQL</button>
-      <button class="experience-filter" type="button" data-skill="unreal-engine" aria-pressed="false" aria-controls="experience-list">Unreal Engine</button>
-      <button class="experience-filter" type="button" data-skill="blender" aria-pressed="false" aria-controls="experience-list">Blender</button>
-      <button class="experience-filter" type="button" data-skill="codex" aria-pressed="false" aria-controls="experience-list">Codex</button>
+    <div class="experience-filter-wrap">
+      <button class="experience-filter-trigger" type="button" aria-expanded="false" aria-controls="experience-filter-menu">
+        <span class="experience-filter-label">すべて</span><span aria-hidden="true">▼</span>
+      </button>
+      <div class="experience-filter-menu" id="experience-filter-menu" role="group" aria-label="スキルで実績を絞り込む">
+        <button class="experience-filter" type="button" data-skill="all" aria-pressed="true" aria-controls="experience-list">すべて</button>
+        <button class="experience-filter" type="button" data-skill="go" aria-pressed="false" aria-controls="experience-list">Go</button>
+        <button class="experience-filter" type="button" data-skill="sql" aria-pressed="false" aria-controls="experience-list">SQL</button>
+        <button class="experience-filter" type="button" data-skill="unreal-engine" aria-pressed="false" aria-controls="experience-list">Unreal Engine</button>
+        <button class="experience-filter" type="button" data-skill="codex" aria-pressed="false" aria-controls="experience-list">Codex</button>
+      </div>
     </div>
     <p class="experience-count" role="status" aria-live="polite"></p>
     <div class="experience-list" id="experience-list">
@@ -127,7 +136,7 @@
         </button>
       </section>
 
-      <section class="experience-card" data-skills="unreal-engine blender" data-modal="unreal-modal">
+      <section class="experience-card" data-skills="unreal-engine" data-modal="unreal-modal">
         <button class="experience-toggle" type="button" aria-haspopup="dialog">
           <h2 class="experience-card-title">Unreal Engineを用いた寝屋川キャンパスのデジタルアーカイブ制作</h2>
           <span class="experience-arrow" aria-hidden="true">→</span>
@@ -206,13 +215,11 @@
       <div class="modal-bottom">
         <div class="modal-skill" aria-label="使用スキル">
           <div class="modal-skill-logos">
-            <img class="modal-skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/blender/blender-original.svg" alt="Blender logo">
             <img class="modal-skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/unrealengine/unrealengine-original.svg" alt="Unreal Engine logo">
           </div>
           <div class="modal-skill-meta">
             <span class="modal-skill-label">SKILL</span>
             <span class="modal-skill-name">Unreal Engine</span>
-            <span class="modal-skill-name">Blender</span>
           </div>
         </div>
         <div class="modal-visual" aria-label="画像なし"><span>NO IMAGE</span></div>
@@ -257,6 +264,9 @@
 
 
       const filters = [...document.querySelectorAll('.experience-filter')];
+      const filterTrigger = document.querySelector('.experience-filter-trigger');
+      const filterMenu = document.querySelector('.experience-filter-menu');
+      const filterLabel = document.querySelector('.experience-filter-label');
       const count = document.querySelector('.experience-count');
       const validSkills = new Set(filters.map((button) => button.dataset.skill));
       const applyFilter = (skill) => {
@@ -267,16 +277,30 @@
           if (!card.hidden) { visible++; card.classList.add('is-visible'); }
         });
         filters.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.skill === selected)));
+        const activeButton = filters.find((button) => button.dataset.skill === selected);
+        if (filterLabel && activeButton) filterLabel.textContent = activeButton.textContent.trim();
         count.textContent = visible + '件の実績';
       };
       const readFilter = () => applyFilter(new URL(window.location.href).searchParams.get('skill'));
+      filterTrigger?.addEventListener('click', () => {
+        const open = filterMenu?.classList.toggle('is-open');
+        filterTrigger.setAttribute('aria-expanded', String(Boolean(open)));
+      });
       filters.forEach((button) => button.addEventListener('click', () => {
         const url = new URL(window.location.href);
         if (button.dataset.skill === 'all') url.searchParams.delete('skill');
         else url.searchParams.set('skill', button.dataset.skill);
         window.history.pushState(null, '', url);
         applyFilter(button.dataset.skill);
+        filterMenu?.classList.remove('is-open');
+        filterTrigger?.setAttribute('aria-expanded', 'false');
       }));
+      document.addEventListener('click', (event) => {
+        if (!filterMenu?.classList.contains('is-open')) return;
+        if (event.target.closest('.experience-filter-wrap')) return;
+        filterMenu.classList.remove('is-open');
+        filterTrigger?.setAttribute('aria-expanded', 'false');
+      });
       window.addEventListener('popstate', readFilter);
       readFilter();
 
