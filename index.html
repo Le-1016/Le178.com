@@ -115,10 +115,10 @@
     .profile.is-visible .profile-row { opacity: 1; transform: translateY(0); }
     .profile-label {
       color: var(--red);
-      font-family: "Orbitron", sans-serif;
-      font-size: 13px;
+      font-family: "Noto Serif JP", "Yu Mincho", "Hiragino Mincho ProN", serif;
+      font-size: 17px;
       font-weight: 700;
-      letter-spacing: 0.16em;
+      letter-spacing: 0.08em;
     }
     .profile-value {
       color: var(--white);
@@ -142,6 +142,7 @@
     }
     @media (max-width: 700px) {
       .profile-row { grid-template-columns: 1fr; gap: 8px; padding: 20px 0; }
+      .profile-label { font-size: 19px; }
       .school-pair { grid-template-columns: 1fr; gap: 14px; }
       .school-ja { font-size: clamp(14px, 4.2vw, 18px); }
     }
