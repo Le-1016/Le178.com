@@ -13,6 +13,12 @@
     .experience-page { min-height: 100vh; padding: 150px 7vw 120px; position: relative; z-index: 2; }
     .experience-title { margin: 0 0 16px; color: var(--red); font-family: "Orbitron", sans-serif; font-size: clamp(42px, 6.5vw, 88px); font-weight: 800; letter-spacing: 0.07em; }
     .experience-lead { max-width: 780px; margin: 0 0 16px; color: var(--white); line-height: 2; opacity: 0.8; }
+    .experience-filters { max-width: 1080px; margin: 24px auto 12px; display: flex; flex-wrap: wrap; gap: 8px; }
+    .experience-filter { min-height: 44px; padding: 8px 14px; border: 1px solid rgba(229,34,34,.35); background: transparent; color: var(--white); font: inherit; font-size: 13px; cursor: pointer; }
+    .experience-filter[aria-pressed="true"], .experience-filter:hover { border-color: var(--red); background: rgba(229,34,34,.12); color: var(--red-bright); }
+    .experience-filter:focus-visible { outline: 2px solid var(--red-bright); outline-offset: 3px; }
+    .experience-count { max-width: 1080px; margin: 0 auto 16px; color: var(--white); font-size: 13px; opacity: .7; }
+    .experience-card[hidden] { display: none; }
     .experience-list { max-width: 1080px; margin: 0 auto; border-top: 1px solid rgba(229,34,34,.24); }
     section.experience-card { padding: 0; }
 
@@ -97,22 +103,31 @@
     <h1 class="experience-title">EXPERIENCE</h1>
     <p class="experience-lead">授業・制作・プロジェクトなどを通して取り組んでいる実践経験をまとめています。</p>
 
-    <div class="experience-list">
-      <section class="experience-card" data-modal="forest-modal">
+    <div class="experience-filters" role="group" aria-label="スキルで実績を絞り込む">
+      <button class="experience-filter" type="button" data-skill="all" aria-pressed="true" aria-controls="experience-list">すべて</button>
+      <button class="experience-filter" type="button" data-skill="go" aria-pressed="false" aria-controls="experience-list">Go</button>
+      <button class="experience-filter" type="button" data-skill="sql" aria-pressed="false" aria-controls="experience-list">SQL</button>
+      <button class="experience-filter" type="button" data-skill="unreal-engine" aria-pressed="false" aria-controls="experience-list">Unreal Engine</button>
+      <button class="experience-filter" type="button" data-skill="blender" aria-pressed="false" aria-controls="experience-list">Blender</button>
+      <button class="experience-filter" type="button" data-skill="codex" aria-pressed="false" aria-controls="experience-list">Codex</button>
+    </div>
+    <p class="experience-count" role="status" aria-live="polite"></p>
+    <div class="experience-list" id="experience-list">
+      <section class="experience-card" data-skills="go sql" data-modal="forest-modal">
         <button class="experience-toggle" type="button" aria-haspopup="dialog">
           <h2 class="experience-card-title">D-CON 2027向け森林保全システム「FOREST」開発</h2>
           <span class="experience-arrow" aria-hidden="true">→</span>
         </button>
       </section>
 
-      <section class="experience-card" data-modal="chatgpt-modal">
+      <section class="experience-card" data-skills="codex" data-modal="chatgpt-modal">
         <button class="experience-toggle" type="button" aria-haspopup="dialog">
           <h2 class="experience-card-title">ChatGPT「Try again / Regenerate」挙動の検証・OpenAIサポートへの報告</h2>
           <span class="experience-arrow" aria-hidden="true">→</span>
         </button>
       </section>
 
-      <section class="experience-card" data-modal="unreal-modal">
+      <section class="experience-card" data-skills="unreal-engine blender" data-modal="unreal-modal">
         <button class="experience-toggle" type="button" aria-haspopup="dialog">
           <h2 class="experience-card-title">Unreal Engineを用いた寝屋川キャンパスのデジタルアーカイブ制作</h2>
           <span class="experience-arrow" aria-hidden="true">→</span>
@@ -239,6 +254,31 @@
         const openModal = document.querySelector('.experience-modal.is-open');
         closeModal(openModal);
       });
+
+
+      const filters = [...document.querySelectorAll('.experience-filter')];
+      const count = document.querySelector('.experience-count');
+      const validSkills = new Set(filters.map((button) => button.dataset.skill));
+      const applyFilter = (skill) => {
+        const selected = validSkills.has(skill) ? skill : 'all';
+        let visible = 0;
+        cards.forEach((card) => {
+          card.hidden = selected !== 'all' && !card.dataset.skills.split(' ').includes(selected);
+          if (!card.hidden) { visible++; card.classList.add('is-visible'); }
+        });
+        filters.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.skill === selected)));
+        count.textContent = visible + '件の実績';
+      };
+      const readFilter = () => applyFilter(new URL(window.location.href).searchParams.get('skill'));
+      filters.forEach((button) => button.addEventListener('click', () => {
+        const url = new URL(window.location.href);
+        if (button.dataset.skill === 'all') url.searchParams.delete('skill');
+        else url.searchParams.set('skill', button.dataset.skill);
+        window.history.pushState(null, '', url);
+        applyFilter(button.dataset.skill);
+      }));
+      window.addEventListener('popstate', readFilter);
+      readFilter();
 
       if (reduceMotion || !('IntersectionObserver' in window)) {
         cards.forEach((card) => card.classList.add('is-visible'));
