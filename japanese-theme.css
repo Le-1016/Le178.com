@@ -20,7 +20,7 @@ nav a,
   padding: 8px 12px;
   overflow: hidden;
   letter-spacing: 0.08em;
-  word-spacing: 0.72em;
+  word-spacing: 0;
   background: none !important;
   transition: none;
 }
