@@ -85,9 +85,12 @@ header .logo:hover span {
   font-family: "Orbitron", sans-serif !important;
 }
 .hero-brand .hero-le,
-.hero-brand .hero-portfolio,
 .hero-brand .hero-dot {
   color: var(--red) !important;
+}
+.hero-brand .hero-portfolio {
+  color: #fff !important;
+  text-shadow: none !important;
 }
 
 /* 文章は白 */
