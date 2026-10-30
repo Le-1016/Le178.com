@@ -105,7 +105,7 @@ header .logo:hover span {
   font-size: 15px;
   line-height: 2;
   letter-spacing: 0.04em;
-  opacity: 0.88;
+  opacity: 1;
 }
 
 .section-heading h2 {
@@ -124,7 +124,7 @@ header .logo:hover span {
   font-size: 13px;
   line-height: 1.9;
   letter-spacing: 0.02em;
-  opacity: 0.82;
+  opacity: 1;
 }
 
 .about-box {
