@@ -65,6 +65,11 @@
     .modal-bottom.no-visual { grid-template-columns: 1fr; }
     .modal-project-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 24px; color: var(--red-bright); font-family: "Orbitron", sans-serif; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-decoration: none; }
     .modal-project-link:hover { color: var(--white); }
+    .kosennight-gallery { margin-top: 32px; display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 16px; }
+    .kosennight-gallery figure { margin: 0; min-width: 0; }
+    .kosennight-gallery img { display: block; width: 100%; height: auto; border: 1px solid rgba(229,34,34,.25); background: #050505; }
+    .kosennight-gallery figcaption { margin-top: 8px; color: var(--white); font-size: 12px; line-height: 1.6; }
+    .repo-pending { display: inline-flex; margin-top: 24px; padding: 11px 14px; border: 1px solid rgba(229,34,34,.32); color: var(--white); font-family: "Orbitron", sans-serif; font-size: 10px; letter-spacing: .08em; }
 
     .motion-ready .experience-card { opacity: 0; transform: translateY(12px); transition: opacity .5s ease, transform .65s cubic-bezier(.22,1,.36,1); }
     .motion-ready .experience-card.is-visible { opacity: 1; transform: none; }
@@ -85,6 +90,7 @@
       .experience-modal-panel { max-height: 90vh; padding: 54px 20px 28px; }
       .modal-bottom { grid-template-columns: 1fr; }
       .modal-visual { min-height: 160px; }
+      .kosennight-gallery { grid-template-columns: 1fr; }
     }
     @media (prefers-reduced-motion: reduce) {
       .motion-ready .experience-card { opacity: 1; transform: none; transition: none; }
