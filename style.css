@@ -42,7 +42,7 @@ nav a:hover::after { width: 100%; }
 .hero-content { position: relative; z-index: 5; }
 .hero h1 { margin: 0; color: var(--white); font-size: clamp(56px,9vw,150px); font-weight: 900; letter-spacing: -.075em; line-height: .82; }
 .hero h1 span { color: var(--red); text-shadow: 0 0 25px rgba(229,34,34,.22); }
-.hero p { margin-top: 40px; color: #666; font-size: 13px; letter-spacing: .1em; font-weight: 400; }
+.hero p { margin-top: 40px; color: var(--white); font-size: 13px; letter-spacing: .1em; font-weight: 400; }
 .hero-button { width: fit-content; margin-top: 42px; display: flex; align-items: center; gap: 40px; padding: 15px 22px; color: var(--white); border: 1px solid rgba(255,255,255,.15); text-decoration: none; font-size: 13px; transition: border-color .25s, background .25s, transform .25s; }
 .hero-button span { color: var(--red); font-size: 17px; transition: transform .25s; }
 .hero-button:hover { border-color: var(--red); background: rgba(229,34,34,.04); transform: translateY(-2px); }
@@ -73,7 +73,7 @@ section:not(.hero) { max-width: 1400px; margin: auto; padding: 130px 8vw; }
 .work-image::after { content: ""; position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px); background-size: 25px 25px; }
 .work-content { padding: 26px 28px; }
 .work-content h3 { color: var(--white); font-size: 19px; font-weight: 600; margin-bottom: 9px; }
-.work-content p { color: #555; font-size: 12px; letter-spacing: .04em; }
+.work-content p { color: var(--white); font-size: 12px; letter-spacing: .04em; }
 .work-card:hover { transform: translateY(-8px); border-color: rgba(229,34,34,.35); box-shadow: 0 30px 80px rgba(0,0,0,.6), 0 0 40px rgba(229,34,34,.06); }
 .work-card:hover .work-image { background: radial-gradient(circle at center, rgba(229,34,34,.13), transparent 60%), #090909; }
 
