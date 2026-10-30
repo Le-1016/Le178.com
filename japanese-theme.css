@@ -59,7 +59,7 @@ header .logo:hover span {
   flex-direction: column;
   align-items: flex-start;
   gap: 0.03em;
-  font-size: clamp(44px, 6.2vw, 96px);
+  font-size: clamp(38px, 5.2vw, 80px);
   font-weight: 800;
   line-height: 0.92;
   letter-spacing: 0.04em;
@@ -73,9 +73,21 @@ header .logo:hover span {
   color: var(--red);
 }
 
-.hero-line-white {
+.hero-welcome {
+  color: var(--red) !important;
+}
+.hero-to {
   color: #fff !important;
   text-shadow: none;
+}
+.hero-brand,
+.hero-brand span {
+  font-family: "Orbitron", sans-serif !important;
+}
+.hero-brand .hero-le,
+.hero-brand .hero-portfolio,
+.hero-brand .hero-dot {
+  color: var(--red) !important;
 }
 
 /* 文章は白 */
@@ -166,7 +178,7 @@ header::after {
 
 @media (max-width: 600px) {
   .hero h1 {
-    font-size: clamp(30px, 9vw, 46px);
+    font-size: clamp(28px, 8vw, 40px);
   }
 
   .about-box {
