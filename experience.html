@@ -138,7 +138,7 @@
 
       <section class="experience-card" data-skills="unreal-engine" data-modal="unreal-modal">
         <button class="experience-toggle" type="button" aria-haspopup="dialog">
-          <h2 class="experience-card-title">Unreal Engineを用いた寝屋川キャンパスのデジタルアーカイブ制作</h2>
+          <h2 class="experience-card-title">KosenNIGHT｜中百舌鳥キャンパスをモチーフにした三人称シューティング</h2>
           <span class="experience-arrow" aria-hidden="true">→</span>
         </button>
       </section>
@@ -205,24 +205,32 @@
     </div>
   </div>
 
-  <div class="experience-modal" id="unreal-modal" role="dialog" aria-modal="true" aria-labelledby="unreal-title">
+    <div class="experience-modal" id="unreal-modal" role="dialog" aria-modal="true" aria-labelledby="unreal-title">
     <div class="experience-modal-panel">
       <button class="modal-close" type="button" aria-label="閉じる">×</button>
-      <span class="modal-status">制作中</span>
-      <p class="modal-kicker">UNREAL ENGINE / DIGITAL ARCHIVE</p>
-      <h2 class="modal-title" id="unreal-title">Unreal Engineを用いた寝屋川キャンパスのデジタルアーカイブ制作</h2>
-      <p class="modal-description">Unreal Engineを用いて、寝屋川キャンパスをデジタル空間上に記録・再現する制作に取り組んでいます。</p>
-      <div class="modal-bottom">
+      <div class="modal-status-row"><span class="modal-status completed">PLAYABLE PROTOTYPE</span><span class="modal-updated">2026/10/30 更新</span></div>
+      <p class="modal-kicker">UNREAL ENGINE 5.8 / C++ / WINDOWS</p>
+      <h2 class="modal-title" id="unreal-title">KosenNIGHT｜中百舌鳥キャンパスをモチーフにした三人称シューティング</h2>
+
+      <p class="modal-description">　中百舌鳥キャンパスをモチーフにした、Windows向けの三人称シューティングゲーム「KosenNIGHT」を制作しています。武器を拾い、部品で作成・強化しながら、道沿いのチェックポイントを攻略する構成です。現在のゲーム内タイトル表示とEXE名は「KOSENFIGHT」です。</p>
+      <p class="modal-description">　ライフル・ショットガン・SMGの射撃、照準、リロード、武器切り替え、ダッシュ・しゃがみ・ジャンプ・スライディング、武器の拾得と作成・強化、スキン選択、難易度設定、コース別の特殊能力、チェックポイント、勝敗判定、セーブ・再開などを実装しています。</p>
+      <p class="modal-description">　制作初期のPythonによる試作から、入力・敵・進行・セーブ・画面表示をC++へ移植し、Unreal Engine 5.8でWindows向けにパッケージ化しました。制作・検証の自動化にもPythonを使用しています。</p>
+      <p class="modal-description">　20戦の自動通し試験では、通常の体力で射撃判定と経路移動を使い、60体の敵の撃破と勝利判定を確認しています。ただし、人による全編の操作試験や、すべてのPCでの動作確認が完了していることを意味するものではありません。</p>
+      <p class="modal-description">　キャラクターにはGame Asset Studio「Taichi Character Pack」とUnreal Engine標準のManny・Quinn、射撃・移動アニメーションやライフルにはUnreal Engine標準素材を使用しています。校舎は実物をモチーフにした近似表現であり、実測による完全再現ではありません。また、大阪公立大学等の公式作品ではありません。</p>
+      <p class="modal-description">　企画・仕様検討を行い、生成AIによる実装支援を活用した個人制作です。生成AIを利用した箇所についても、自作コードや実際の動作確認と区別して扱っています。</p>
+
+      <div class="modal-bottom no-visual">
         <div class="modal-skill" aria-label="使用スキル">
           <div class="modal-skill-logos">
             <img class="modal-skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/unrealengine/unrealengine-original.svg" alt="Unreal Engine logo">
           </div>
           <div class="modal-skill-meta">
             <span class="modal-skill-label">SKILL</span>
-            <span class="modal-skill-name">Unreal Engine</span>
+            <span class="modal-skill-name">Unreal Engine 5.8</span>
+            <span class="modal-skill-name">C++</span>
+            <span class="modal-skill-name">Python</span>
           </div>
         </div>
-        <div class="modal-visual" aria-label="画像なし"><span>NO IMAGE</span></div>
       </div>
     </div>
   </div>
