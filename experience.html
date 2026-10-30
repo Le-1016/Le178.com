@@ -12,7 +12,7 @@
   <style>
     .experience-page { min-height: 100vh; padding: 150px 7vw 120px; position: relative; z-index: 2; }
     .experience-title { margin: 0 0 16px; color: var(--red); font-family: "Orbitron", sans-serif; font-size: clamp(42px, 6.5vw, 88px); font-weight: 800; letter-spacing: 0.07em; }
-    .experience-lead { max-width: 780px; margin: 0 0 16px; color: var(--white); line-height: 2; opacity: 0.8; }
+    .experience-lead { max-width: 780px; margin: 0 0 16px; color: var(--white); line-height: 2; opacity: 1; }
     .experience-filter-wrap { max-width: 1080px; margin: 24px auto 12px; display: flex; justify-content: flex-end; position: relative; }
     .experience-filter-trigger { min-width: 150px; min-height: 44px; display: inline-flex; align-items: center; justify-content: space-between; gap: 18px; padding: 9px 14px; border: 1px solid rgba(229,34,34,.35); background: rgba(8,8,8,.92); color: var(--white); font: inherit; font-size: 13px; cursor: pointer; }
     .experience-filter-trigger:hover, .experience-filter-trigger[aria-expanded="true"] { border-color: var(--red); color: var(--red-bright); }
@@ -22,7 +22,7 @@
     .experience-filter { width: 100%; min-height: 42px; padding: 10px 14px; border: 0; border-bottom: 1px solid rgba(229,34,34,.14); background: transparent; color: var(--white); font: inherit; font-size: 13px; text-align: left; cursor: pointer; }
     .experience-filter:last-child { border-bottom: 0; }
     .experience-filter[aria-pressed="true"], .experience-filter:hover { background: rgba(229,34,34,.12); color: var(--red-bright); }
-    .experience-count { max-width: 1080px; margin: 0 auto 16px; color: var(--white); font-size: 13px; opacity: .7; text-align: right; }
+    .experience-count { max-width: 1080px; margin: 0 auto 16px; color: var(--white); font-size: 13px; opacity: 1; text-align: right; }
     .experience-card[hidden] { display: none; }
     .experience-list { max-width: 1080px; margin: 0 auto; border-top: 1px solid rgba(229,34,34,.24); }
     section.experience-card { padding: 0; }
@@ -48,17 +48,17 @@
     .modal-status-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin: 0 0 24px; }
     .modal-status { display: inline-block; margin: 0; padding: 7px 11px; border: 1px solid rgba(229,34,34,.58); color: var(--red-bright); font-family: "Noto Serif JP", "Yu Mincho", "Hiragino Mincho ProN", serif; font-size: 13px; font-weight: 700; letter-spacing: .08em; }
     .modal-status.completed { border-color: rgba(67,190,105,.72); color: #62d783; }
-    .modal-updated { color: rgba(241,241,241,.55); font-family: "Orbitron", sans-serif; font-size: 10px; font-weight: 600; letter-spacing: .12em; }
+    .modal-updated { color: var(--white); font-family: "Orbitron", sans-serif; font-size: 10px; font-weight: 600; letter-spacing: .12em; }
     .modal-kicker { margin: 0 0 16px; color: var(--red); font-family: "Orbitron", sans-serif; font-size: 11px; font-weight: 700; letter-spacing: .16em; }
     .modal-title { margin: 0 0 26px; color: var(--white); font-family: "Noto Serif JP", serif; font-size: clamp(24px,3vw,36px); line-height: 1.55; }
-    .modal-description { margin: 0; color: var(--white); font-size: 15px; line-height: 2; opacity: .78; }
+    .modal-description { margin: 0; color: var(--white); font-size: 15px; line-height: 2; opacity: 1; }
     .modal-description + .modal-description { margin-top: 1.4em; }
     .modal-bottom { margin-top: 36px; display: grid; grid-template-columns: minmax(0,1fr) minmax(260px,.8fr); gap: 34px; align-items: end; }
     .modal-skill { display: flex; align-items: center; gap: 14px; }
     .modal-skill-logos { display: grid; gap: 8px; align-items: center; justify-items: center; }
     .modal-skill-logo { width: 56px; height: 56px; object-fit: contain; filter: brightness(0) invert(1); }
     .modal-skill-meta { display: grid; gap: 4px; }
-    .modal-skill-label { color: rgba(241,241,241,.48); font-family: "Orbitron", sans-serif; font-size: 10px; font-weight: 700; letter-spacing: .16em; }
+    .modal-skill-label { color: var(--white); font-family: "Orbitron", sans-serif; font-size: 10px; font-weight: 700; letter-spacing: .16em; }
     .modal-skill-name { color: var(--red-bright); font-family: "Orbitron", sans-serif; font-size: 14px; font-weight: 700; letter-spacing: .08em; }
     .modal-visual { min-height: 190px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(229,34,34,.16); background: linear-gradient(rgba(229,34,34,.045) 1px,transparent 1px), linear-gradient(90deg,rgba(229,34,34,.045) 1px,transparent 1px), rgba(5,5,5,.72); background-size: 28px 28px; }
     .modal-visual span { color: var(--red); font-family: "Orbitron", sans-serif; font-size: clamp(24px,3vw,38px); font-weight: 800; letter-spacing: .12em; opacity: .72; }
