@@ -70,6 +70,7 @@
     .kosennight-gallery img { display: block; width: 100%; height: auto; border: 1px solid rgba(229,34,34,.25); background: #050505; }
     .kosennight-gallery figcaption { margin-top: 8px; color: var(--white); font-size: 12px; line-height: 1.6; }
     .repo-pending { display: inline-flex; margin-top: 24px; padding: 11px 14px; border: 1px solid rgba(229,34,34,.32); color: var(--white); font-family: "Orbitron", sans-serif; font-size: 10px; letter-spacing: .08em; }
+    #unreal-modal .modal-skill-logo { filter: brightness(0) invert(1) !important; }
 
     .motion-ready .experience-card { opacity: 0; transform: translateY(12px); transition: opacity .5s ease, transform .65s cubic-bezier(.22,1,.36,1); }
     .motion-ready .experience-card.is-visible { opacity: 1; transform: none; }
@@ -223,7 +224,6 @@
       <p class="modal-description">　制作初期のPythonによる試作から、入力・敵・進行・セーブ・画面表示をC++へ移植し、Unreal Engine 5.8でWindows向けにパッケージ化しました。制作・検証の自動化にもPythonを使用しています。</p>
       <p class="modal-description">　20戦の自動通し試験では、通常の体力で射撃判定と経路移動を使い、60体の敵の撃破と勝利判定を確認しています。ただし、人による全編の操作試験や、すべてのPCでの動作確認が完了していることを意味するものではありません。</p>
       <p class="modal-description">　キャラクターにはGame Asset Studio「Taichi Character Pack」とUnreal Engine標準のManny・Quinn、射撃・移動アニメーションやライフルにはUnreal Engine標準素材を使用しています。校舎は実物をモチーフにした近似表現であり、実測による完全再現ではありません。また、大阪公立大学等の公式作品ではありません。</p>
-      <p class="modal-description">　企画・仕様検討を行い、生成AIによる実装支援を活用した個人制作です。生成AIを利用した箇所についても、自作コードや実際の動作確認と区別して扱っています。</p>
 
       <div class="kosennight-gallery" aria-label="KosenNIGHT スクリーンショット">
         <figure><img src="assets/experience/kosennight-gameplay.jpg?v=20261102-1" alt="KosenNIGHTのゲームプレイ画面"><figcaption>ゲームプレイ画面</figcaption></figure>
@@ -240,8 +240,6 @@
           <div class="modal-skill-meta">
             <span class="modal-skill-label">SKILL</span>
             <span class="modal-skill-name">Unreal Engine 5.8</span>
-            <span class="modal-skill-name">C++</span>
-            <span class="modal-skill-name">Python</span>
           </div>
         </div>
       </div>
