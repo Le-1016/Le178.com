@@ -125,30 +125,35 @@ body::after { content: ""; position: fixed; inset: 0; z-index: 9999; pointer-eve
 }
 
 /* ========================================
-   EXPERIENCE: UNREAL SKILLS
+   EXPERIENCE: UNREAL SKILL
 ======================================== */
 
 #unreal-modal .modal-skill {
+  display: flex !important;
   flex-direction: row !important;
-  align-items: flex-start !important;
-  gap: 24px !important;
+  align-items: center !important;
+  gap: 16px !important;
 }
 
 #unreal-modal .modal-skill-logos {
-  margin-top: 18px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0 !important;
 }
 
-#unreal-modal .modal-skill-logos .modal-skill-logo:first-child {
-  filter: none !important;
+#unreal-modal .modal-skill-logo {
+  width: 56px !important;
+  height: 56px !important;
+  object-fit: contain !important;
+  filter: brightness(0) invert(1) !important;
 }
 
 #unreal-modal .modal-skill-meta {
   display: flex !important;
   flex-direction: column !important;
   align-items: flex-start !important;
+  justify-content: center !important;
   gap: 4px !important;
+  margin: 0 !important;
 }
-
-#unreal-modal .modal-skill-meta > span:nth-child(1) { order: 1; }
-#unreal-modal .modal-skill-meta > span:nth-child(2) { order: 3; }
-#unreal-modal .modal-skill-meta > span:nth-child(3) { order: 2; }
