@@ -142,6 +142,13 @@
           <span class="experience-arrow" aria-hidden="true">→</span>
         </button>
       </section>
+
+      <section class="experience-card" data-skills="python" data-modal="study-analysis-modal">
+        <button class="experience-toggle" type="button" aria-haspopup="dialog">
+          <h2 class="experience-card-title">学習記録・成績分析システム</h2>
+          <span class="experience-arrow" aria-hidden="true">→</span>
+        </button>
+      </section>
     </div>
   </main>
 
@@ -204,6 +211,22 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+
+
+  <div class="experience-modal" id="study-analysis-modal" role="dialog" aria-modal="true" aria-labelledby="study-analysis-title">
+    <div class="experience-modal-panel">
+      <button class="modal-close" type="button" aria-label="閉じる">×</button>
+      <div class="modal-status-row"><span class="modal-status completed">制作終了</span><span class="modal-updated">2026/9/30 更新</span></div>
+      <p class="modal-kicker">PYTHON / SQLITE / GOOGLE COLAB</p>
+      <h2 class="modal-title" id="study-analysis-title">学習記録・成績分析システム</h2>
+
+      <p class="modal-description">　日々の学習記録とテスト結果を保存し、科目ごとの学習時間や平均得点率を確認できるシステムをGoogle Colab上で制作しました。</p>
+      <p class="modal-description">　科目登録、学習記録・成績の登録と削除、学習時間分析、成績分析、学習時間と成績を組み合わせた総合分析を実装しています。操作は入力欄・プルダウン・ボタンで行えるようにしました。</p>
+      <p class="modal-description">　データ保存にはSQLite、集計・表示にはpandas、グラフ表示にはmatplotlib、操作画面にはipywidgetsを使用しています。</p>
+
+      <a class="modal-project-link" href="https://colab.research.google.com/drive/1LoIzd_losA9ovLN9bGUcNbWAv-jxs43P?hl=ja" target="_blank" rel="noopener noreferrer">GOOGLE COLAB →</a>
     </div>
   </div>
 
