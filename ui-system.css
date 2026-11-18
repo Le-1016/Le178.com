@@ -407,3 +407,78 @@ header nav a[aria-current="page"]::before {
     animation-iteration-count: 1 !important;
   }
 }
+
+
+/* Navigation and interaction clarity */
+header nav {
+  gap: 8px !important;
+}
+
+header nav a {
+  padding: 0 12px;
+  border: 1px solid transparent;
+}
+
+header nav a:hover,
+header nav a:focus-visible,
+header nav a.active,
+header nav a[aria-current="page"] {
+  border-color: var(--ui-hairline);
+  background: rgba(229, 34, 34, .035);
+}
+
+.ui-skip-link {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 12000;
+  padding: 10px 14px;
+  border: 1px solid var(--red);
+  background: var(--black);
+  color: var(--white);
+  text-decoration: none;
+  font-family: "Noto Serif JP", "Yu Mincho", "Hiragino Mincho ProN", serif;
+  font-size: 13px;
+  transform: translateY(-150%);
+  transition: transform .18s ease;
+}
+
+.ui-skip-link:focus {
+  transform: translateY(0);
+}
+
+main {
+  outline: none;
+}
+
+.skill-row {
+  padding-inline: clamp(0px, 1.5vw, 18px);
+}
+
+.blog-toggle > span:first-child,
+.cert-toggle > *:first-child,
+.experience-toggle > *:first-child {
+  min-width: 0;
+}
+
+@media (max-width: 900px) {
+  header nav {
+    gap: 6px !important;
+  }
+
+  header nav a {
+    padding-inline: 10px;
+  }
+}
+
+@media (max-width: 600px) {
+  header nav {
+    gap: 6px !important;
+  }
+
+  header nav a {
+    width: 100%;
+    justify-content: flex-start;
+    padding-inline: 10px;
+  }
+}
