@@ -1,0 +1,409 @@
+/* Le178 UI refinement layer
+   Keeps the existing palette and page content intact. */
+
+:root {
+  --ui-hairline: rgba(229, 34, 34, .24);
+  --ui-hairline-strong: rgba(229, 34, 34, .48);
+  --ui-white-soft: rgba(241, 241, 241, .82);
+  --ui-white-faint: rgba(241, 241, 241, .08);
+  --ui-black-glass: rgba(5, 5, 5, .84);
+  --ui-focus: 0 0 0 2px var(--black), 0 0 0 4px var(--red);
+}
+
+html {
+  scrollbar-gutter: stable;
+  scroll-padding-top: 112px;
+}
+
+body {
+  line-height: 1.7;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--red);
+  color: var(--white);
+}
+
+a, button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a:focus-visible,
+button:focus-visible,
+[tabindex]:focus-visible {
+  outline: none !important;
+  box-shadow: var(--ui-focus) !important;
+}
+
+header {
+  border-bottom-color: var(--ui-hairline) !important;
+  background: var(--ui-black-glass) !important;
+}
+
+header .logo {
+  min-height: 44px;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+header nav a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+}
+
+header nav a.active::before,
+header nav a[aria-current="page"]::before {
+  content: "";
+  width: 4px;
+  height: 4px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: var(--red);
+  box-shadow: 0 0 10px var(--red);
+}
+
+.hero-content,
+.profile-box,
+.contact-box,
+.skill-list,
+.blog-list,
+.cert-list,
+.experience-list,
+.experience-filter-wrap,
+.experience-count {
+  position: relative;
+}
+
+.profile-box,
+.contact-box,
+.cert-modal-panel,
+.experience-modal-panel,
+.blog-modal {
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, .28),
+    inset 0 1px 0 rgba(241, 241, 241, .025);
+}
+
+.section-heading,
+.skill-title,
+.blog-title,
+.cert-title,
+.experience-title {
+  position: relative;
+}
+
+.section-heading::after,
+.skill-title::after,
+.blog-title::after,
+.cert-title::after,
+.experience-title::after {
+  content: "";
+  display: block;
+  width: 44px;
+  height: 2px;
+  margin-top: 16px;
+  background: var(--red);
+}
+
+.skill-lead,
+.blog-lead,
+.cert-lead,
+.experience-lead,
+.contact-copy,
+.modal-description,
+.blog-body p {
+  max-width: 72ch;
+}
+
+.skill-row,
+.blog-entry,
+.cert-item,
+.experience-card {
+  isolation: isolate;
+}
+
+.skill-row::after,
+.blog-entry::after,
+.cert-item::after,
+.experience-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0;
+  background: linear-gradient(90deg, rgba(229, 34, 34, .055), transparent 42%);
+  transition: opacity .25s ease;
+}
+
+.skill-row:hover::after,
+.blog-entry:hover::after,
+.blog-entry:focus-within::after,
+.cert-item:hover::after,
+.cert-item:focus-within::after,
+.experience-card:hover::after,
+.experience-card:focus-within::after {
+  opacity: 1;
+}
+
+.blog-toggle,
+.cert-toggle,
+.experience-toggle {
+  min-height: 64px !important;
+}
+
+.blog-entry-title,
+.cert-name,
+.experience-card-title {
+  text-wrap: pretty;
+}
+
+.blog-arrow,
+.cert-arrow,
+.experience-arrow {
+  width: 34px;
+  height: 34px;
+  display: inline-grid;
+  place-items: center;
+  border: 1px solid transparent;
+  border-radius: 50%;
+}
+
+.blog-entry:hover .blog-arrow,
+.blog-entry:focus-within .blog-arrow,
+.cert-item:hover .cert-arrow,
+.cert-item:focus-within .cert-arrow,
+.experience-card:hover .experience-arrow,
+.experience-card:focus-within .experience-arrow {
+  border-color: var(--ui-hairline);
+}
+
+.skill-artifact-button,
+.contact-link,
+.blog-source-link,
+.modal-project-link,
+.repo-pending {
+  min-height: 44px;
+  justify-content: center;
+  border-color: var(--ui-hairline-strong) !important;
+  transition:
+    border-color .2s ease,
+    background .2s ease,
+    color .2s ease,
+    transform .2s ease !important;
+}
+
+.skill-artifact-button:hover,
+.contact-link:hover,
+.blog-source-link:hover,
+.modal-project-link:hover,
+.repo-pending:hover {
+  background: rgba(229, 34, 34, .08);
+  transform: translateY(-2px);
+}
+
+.experience-filter-trigger {
+  min-height: 46px !important;
+  border-color: var(--ui-hairline-strong) !important;
+}
+
+.experience-filter-menu {
+  border-color: var(--ui-hairline-strong) !important;
+  box-shadow: 0 18px 55px rgba(0, 0, 0, .56) !important;
+}
+
+.experience-filter {
+  min-height: 44px !important;
+}
+
+.modal-status-row {
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--ui-white-faint);
+}
+
+.modal-title,
+.blog-post-title {
+  text-wrap: balance;
+}
+
+.modal-description,
+.blog-body p {
+  line-height: 2.05 !important;
+}
+
+.modal-close,
+.blog-modal-close {
+  display: grid;
+  place-items: center;
+  border-color: var(--ui-hairline-strong) !important;
+}
+
+.experience-modal-panel,
+.cert-modal-panel,
+.blog-modal {
+  scrollbar-width: thin;
+  scrollbar-color: var(--red) var(--black-light);
+}
+
+.experience-modal-panel::-webkit-scrollbar,
+.cert-modal-panel::-webkit-scrollbar,
+.blog-modal::-webkit-scrollbar {
+  width: 10px;
+}
+
+.experience-modal-panel::-webkit-scrollbar-track,
+.cert-modal-panel::-webkit-scrollbar-track,
+.blog-modal::-webkit-scrollbar-track {
+  background: var(--black-light);
+}
+
+.experience-modal-panel::-webkit-scrollbar-thumb,
+.cert-modal-panel::-webkit-scrollbar-thumb,
+.blog-modal::-webkit-scrollbar-thumb {
+  background: var(--red);
+  border: 3px solid var(--black-light);
+}
+
+.ui-scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  z-index: 10000;
+  pointer-events: none;
+  background: var(--red);
+  box-shadow: 0 0 12px rgba(229, 34, 34, .48);
+  transition: width .08s linear;
+}
+
+.ui-back-to-top {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 9000;
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--ui-hairline-strong);
+  background: var(--ui-black-glass);
+  color: var(--white);
+  font: 700 18px/1 "Orbitron", sans-serif;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition: opacity .2s ease, visibility .2s ease, transform .2s ease, border-color .2s ease;
+}
+
+.ui-back-to-top.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.ui-back-to-top:hover {
+  color: var(--red-bright);
+  border-color: var(--red);
+}
+
+@media (max-width: 900px) {
+  html { scroll-padding-top: 170px; }
+
+  header {
+    border-bottom-color: var(--ui-hairline-strong) !important;
+  }
+
+  header nav a.active::before,
+  header nav a[aria-current="page"]::before {
+    width: 3px;
+    height: 3px;
+    margin-right: 6px;
+  }
+
+  .skill-row,
+  .blog-entry,
+  .cert-item,
+  .experience-card {
+    border-color: var(--ui-hairline) !important;
+  }
+
+  .ui-back-to-top {
+    right: 16px;
+    bottom: 16px;
+    width: 44px;
+    height: 44px;
+  }
+}
+
+@media (max-width: 600px) {
+  .skill-page,
+  .blog-page,
+  .cert-page,
+  .experience-page {
+    padding-left: 18px !important;
+    padding-right: 18px !important;
+  }
+
+  .skill-title,
+  .blog-title,
+  .cert-title,
+  .experience-title {
+    margin-bottom: 20px !important;
+  }
+
+  .skill-title::after,
+  .blog-title::after,
+  .cert-title::after,
+  .experience-title::after {
+    margin-top: 10px;
+    width: 34px;
+  }
+
+  .blog-toggle,
+  .cert-toggle,
+  .experience-toggle {
+    min-height: 64px !important;
+    padding-top: 14px !important;
+    padding-bottom: 14px !important;
+  }
+
+  .blog-entry-title,
+  .cert-name,
+  .experience-card-title {
+    line-height: 1.65 !important;
+  }
+
+  .modal-description,
+  .blog-body p {
+    line-height: 1.95 !important;
+  }
+
+  .experience-filter-wrap {
+    margin-top: 20px !important;
+  }
+
+  .experience-filter-trigger {
+    width: 100%;
+  }
+
+  .experience-filter-menu {
+    width: 100% !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
