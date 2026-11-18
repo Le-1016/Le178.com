@@ -3,6 +3,18 @@
   const body = doc.body;
   if (!body) return;
 
+  const main = doc.querySelector('main');
+  if (main) {
+    if (!main.id) main.id = 'main-content';
+    main.setAttribute('tabindex', '-1');
+
+    const skip = doc.createElement('a');
+    skip.className = 'ui-skip-link';
+    skip.href = '#' + main.id;
+    skip.textContent = '本文へ移動';
+    body.prepend(skip);
+  }
+
   const active = [...doc.querySelectorAll('header nav a')].find((link) => {
     const href = link.getAttribute('href');
     return href && location.pathname.endsWith(href);
